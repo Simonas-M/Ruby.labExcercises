@@ -1,0 +1,28 @@
+Tikslas - susipažinti su: 
+  (a) elgsena paremto programavimo principais
+  (b) moduliniu (angl. "unit") testavimu
+  (c) RSpec testavimo karkasu
+  (d) Ruby progravimo kalba
+
+Užduotis:
+  1) Identifikuoti esminę esybę (pvz. bankinėje sistemoje tai būtų Sąskaita); 
+  2) Įgyvendinti esminės esybės funkcionalumą BDD principu parašant bent 10 testų, kurie testuoja būtent tą dalykinę sritį. Pvz. puikiai tinka testas, kuris bankinėje sistemoje testuoja ar korektiškai nukeliauja pinigai gavėjui, kai siuntėjas atlieka pavedimą. Bet visiškai netinka toks testas, kuris testuoja kokio tipo objektas susikūrė iškvietus 'initialize' metodą, nes tai visiškai neparodo ar sistema veikia korektiškai ar ne.
+
+Reikalavimai:
+  1) Visas kodas turi būti 100% padengtas testais.
+  2) Reikia panaudoti SimpleCov įrankį ir pademonstruoti kodo padengimą testais.
+  3) Reikia panaudoti RuboCop įrankį kartu su [rubocop-rspec](https://github.com/backus/rubocop-rspec) ir pademonstruoti kodo atitikimą "Ruby Style Guide". Reikia naudoti standartinę RuboCop konfigūraciją.
+  4) Reikia panaudoti Reek įrankį ir pademonstruoti, kad kodas neturi tipinių simptomų. Reikia naudoti standartinę Reek konfigūraciją.
+  5) Reikia pademonstruoti aukštą testų kokybę Mutant įrankio pagalba.
+  6) Jeigu įgyvendinant esminės klasės funkcionalumą prireikia kitų klasių, tai jas taip pat reikia parašyti panaudojant BDD.
+  7) Negalima naudoti Rails, ActiveRecord ar kokio nors kito karkaso atliekant šią užduotį. T.y. užduotis turi daugiau demonstruoti gebėjimą programuoti Ruby, o ne naudojimąsi kokiu nors karkasu.
+
+Alternatyvos:
+  Užduotis galima atlikti ir su kita pasirinkta kalba. Bet būtina išpildyti visus užduoties reikalavimus su analogiškais įrankiais pasirinktai kitai kalbai (pvz. pasirinkus Node.js aplinką vietoj SimpleCov panaudoti [Istanbul](https://github.com/gotwarlost/istanbul)). Užduotys yra tęstinės, t.y. reikia pasirinkti tokią kalbą su kuria būtų galima išpildyti visų atsiskaitomų užduočių reikalavimus.
+
+Įvertinimas: 1 balas 
+
+---
+
+Progress:
+* RuboCop installed(vscode plugin)

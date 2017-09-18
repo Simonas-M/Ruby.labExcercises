@@ -65,3 +65,4 @@ Reikalavimai:
 * pamatyti dienos santrauką(tą dieną rodomus filmus)
 * įvertinti matytą filmą
 * peržiūrėti amžiaus cenzus - jų reikšmes ir apribojimus
+* pažymėti bilietą, kaip panaudotą
