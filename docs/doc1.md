@@ -40,10 +40,7 @@ Reikalavimai:
         * lojalumo kortelė(-s)
         * dovanų kuponas
     * patvirtinti pirkimą
-* peržiūrėti savo pirkimų istoriją
-* "atsispausdinti" nusipirktą bilietą
-* rezervuoti bilietą(-us)(tokie patys žingsniai kaip ir pirkimo)
-* atšaukti bilieto(-ų) rezervaciją
+* peržiūrėti kino filma(panaudoti bilietą)
 * peržiūrėti repertuarą(visi dabar rodomi filmai)
 * filtruoti repertuarą pagal:
     * datą
@@ -51,8 +48,8 @@ Reikalavimai:
     * kino salę
     * kino teatro vietą
 * peržiūrėti tam tikro kino filmo:
-    * repertuarą
-    * bendrą informaciją
+    1 repertuarą
+    2 bendrą informaciją
         * cenzą
         * žanrą
         * trukmę
@@ -63,6 +60,10 @@ Reikalavimai:
     * pagal įvertinimą
     * pagal bilietų perkamumą
 * pamatyti dienos santrauką(tą dieną rodomus filmus)
+* "atsispausdinti" nusipirktą bilietą
+* rezervuoti bilietą(-us)(tokie patys žingsniai kaip ir pirkimo, tik bilietas dar neapmokėtas)
+* atšaukti bilieto(-ų) rezervaciją
 * įvertinti matytą filmą
 * peržiūrėti amžiaus cenzus - jų reikšmes ir apribojimus
-* pažymėti bilietą, kaip panaudotą
+
+* peržiūrėti savo pirkimų istoriją
