@@ -5,4 +5,9 @@ class CinemaScreen
     @name = name
     @seat_count = seat_count
   end
+
+  def ==(other)
+    @name == other.name &&
+      @seat_count == other.seat_count
+  end
 end
