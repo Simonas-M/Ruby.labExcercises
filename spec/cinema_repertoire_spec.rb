@@ -57,15 +57,30 @@ describe ':Repertoire:' do
   end
 
   it 'should add a new movie' do
+    movie = MovieHelper.create
+    @repertoire.add_movie(movie: movie)
+    expect(@repertoire.movies.include?(movie)).to be true
   end
 
   it 'should not add same movie' do
+    movie = MovieHelper.create
+    @repertoire.add_movie(movie: movie)
+    expect { @repertoire.add_movie(movie: movie) }
+      .to raise_error('cannot add existing movie')
   end
 
   it 'should delete existing movie' do
+    movie = MovieHelper.create
+    @repertoire.add_movie(movie: movie)
+    @repertoire.del_movie(movie: movie)
+    expect(@repertoire.movies.include?(movie)).to be false
   end
 
   it 'should raise when trying to delete non existing movie' do
+    in_repertoire = MovieHelper.create
+    not_in_repertoire = MovieHelper.create(title: 'Mist')
+    @repertoire.add_movie(movie: in_repertoire)
+    expect { @repertoire.del_movie(movie: not_in_repertoire) }
+      .to raise_error('cannot delete non existing movie')
   end
-
 end
