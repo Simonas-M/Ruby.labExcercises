@@ -1,5 +1,6 @@
 # constants for cinema locations
-class CinemaLocations
+module CinemaLocations
+  attr_reader :locations
   @locations = {
     TORONTO: [
       'Screen no.1',

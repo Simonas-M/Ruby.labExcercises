@@ -21,4 +21,8 @@ class MovieScreening
     seat_count <= (@cinema_screen.seat_count - @available_seat_count)
     @available_seat_count += seat_count
   end
+
+  def available?(seat_count)
+    seat_count <= @available_seat_count
+  end
 end
