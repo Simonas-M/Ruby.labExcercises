@@ -1,8 +1,8 @@
-require 'time'
 require_relative '../../src/movie/movie.rb'
 require_relative '../../src/movie/movie_crew.rb'
 require_relative '../../src/movie/movie_info.rb'
 require_relative '../../src/movie/movie_description.rb'
+require 'time'
 
 # class for creating Movie objects for test cases
 class MovieHelper
@@ -12,7 +12,12 @@ class MovieHelper
       writers: ['Bob'],
       actors: %w[Rick Morty]
     )
-    movie_info = MovieInfo.new(:PG, 10_000, Time.utc(2015, 1, 1), movie_crew)
+    movie_info = MovieInfo.new(
+      rating: :PG,
+      duration: 10_000,
+      release_date: Time.utc(2015, 1, 1),
+      crew: movie_crew
+    )
     movie_description = MovieDescription.new(
       title: title,
       genre: 'ACTION',
