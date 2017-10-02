@@ -32,4 +32,10 @@ describe ':Movie Screening:' do
     @movie_screening.reserve(5)
     expect { @movie_screening.free(6) }.to raise_error('cannon free 6 seats')
   end
+  it 'should return false if not enough seats are available' do
+    expect(@movie_screening.available?(50)).to be false
+  end
+  it 'should return true if there are enough seats are available' do
+    expect(@movie_screening.available?(3)).to be true
+  end
 end
