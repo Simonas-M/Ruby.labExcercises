@@ -10,9 +10,6 @@ describe '::Movie Genres' do
   it 'should accept strings as arguments' do
     expect(MovieGenres.include?('action')).to be true
   end
-  it 'should accept strings as arguments' do
-    expect(MovieGenres.include?('action')).to be true
-  end
   it 'should be frozen' do
     before = MovieGenres::GENRES
     expect { MovieGenres::GENRES = 'not genres' }.to raise_error

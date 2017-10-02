@@ -9,14 +9,16 @@ class MovieScreening
   end
 
   def reserve(seat_count)
+    seat_count = seat_count.to_i
     raise 'not enough free seats available' unless
-      seat_count.to_i <= @available_seat_count
-    @available_seat_count -= seat_count.to_i
+      seat_count <= @available_seat_count
+    @available_seat_count -= seat_count
   end
 
   def free(seat_count)
+    seat_count = seat_count.to_i
     raise "cannon free #{seat_count} seats" unless
-    seat_count.to_i <= (@cinema_screen.seat_count - @available_seat_count)
-    @available_seat_count += seat_count.to_i
+    seat_count <= (@cinema_screen.seat_count - @available_seat_count)
+    @available_seat_count += seat_count
   end
 end
