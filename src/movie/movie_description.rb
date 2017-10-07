@@ -8,7 +8,7 @@ class MovieDescription
     MovieGenres.include?(genre)
 
     @title = title.to_s
-    @genre = genre
+    @genre = genre.to_sym.upcase
     @summary = summary.to_s
   end
 end

@@ -2,7 +2,7 @@ require_relative '../../src/movie/movie_info.rb'
 require_relative '../../src/movie/movie_crew.rb'
 require 'time'
 
-describe '::Movie Info' do
+RSpec.describe '::Movie Info' do
   before(:each) do
     @info_args = {
       rating: :PG13,

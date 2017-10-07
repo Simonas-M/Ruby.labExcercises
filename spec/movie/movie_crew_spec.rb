@@ -1,6 +1,6 @@
 require_relative '../../src/movie/movie_crew.rb'
 
-describe '::Movie Crew' do
+RSpec.describe '::Movie Crew' do
   before(:each) do
     @crew_args = {
       directors: %w[Adam John],

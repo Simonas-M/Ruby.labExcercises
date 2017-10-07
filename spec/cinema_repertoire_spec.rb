@@ -4,7 +4,7 @@ require_relative '../src/cinema_repertoire.rb'
 require_relative '../src/cinema_screen.rb'
 require_relative './helpers/movie_helper.rb'
 
-describe ':Repertoire:' do
+RSpec.describe ':Repertoire:' do
   before(:each) do
     @repertoire = CinemaRepertoire.new
     @screening =  MovieScreening.new(movie: MovieHelper.create,

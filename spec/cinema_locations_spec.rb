@@ -1,6 +1,6 @@
 require_relative '../src/cinema_locations.rb'
 
-describe '::Cinema Locations' do
+RSpec.describe '::Cinema Locations' do
   it 'should add new cinema location' do
     CinemaLocations.add('Vilnius', %w[1 2 3])
     expect(CinemaLocations.location?('vilnius', 1)).to be true

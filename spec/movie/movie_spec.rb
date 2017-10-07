@@ -4,7 +4,7 @@ require_relative '../../src/movie/movie_description.rb'
 require_relative '../../src/movie/movie_info.rb'
 require 'time'
 
-describe '::Initialization' do
+RSpec.describe '::Initialization' do
   it "shouldn't initialize without parameters" do
     expect { Movie.new }.to raise_error(ArgumentError)
   end

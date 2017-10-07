@@ -1,6 +1,6 @@
 require_relative '../src/cinema_screen.rb'
 
-describe ':Cinema Screen:' do
+RSpec.describe ':Cinema Screen:' do
   before(:each) do
     @cinema_screen = CinemaScreen.new(name: 'test', seat_count: 40)
   end

@@ -1,6 +1,6 @@
 require_relative '../../src/movie/movie_ratings.rb'
 
-describe '::Movie Ratings' do
+RSpec.describe '::Movie Ratings' do
   it 'should return true if movie rating exists' do
     expect(MovieRatings.include?(:PG)).to be true
   end
@@ -12,7 +12,7 @@ describe '::Movie Ratings' do
   end
   it 'should be frozen' do
     before = MovieRatings::RATINGS
-    expect { MovieRatings::RATINGS = 'not ratings' }.to raise_error
+    expect { MovieRatings::RATINGS = 'not ratings' }.to raise_error()
     expect(MovieRatings::RATINGS).to eq(before)
   end
 end

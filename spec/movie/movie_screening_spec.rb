@@ -3,7 +3,7 @@ require_relative '../../src/cinema_screen.rb'
 require_relative '../helpers/movie_helper.rb'
 require 'time'
 
-describe ':Movie Screening:' do
+RSpec.describe ':Movie Screening:' do
   before(:each) do
     @movie_screening = MovieScreening.new(
       movie: MovieHelper.create,
