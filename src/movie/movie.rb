@@ -5,23 +5,23 @@ require_relative 'movie_description.rb'
 class Movie
   attr_reader :info, :description
   def initialize(info, description)
-    raise ArgumentError unless
-    info.class == MovieInfo &&
-    description.class == MovieDescription
+    raise 'wrong parameter types' unless
+    info.class.equal?(MovieInfo) &&
+    description.class.equal?(MovieDescription)
 
     @info = info
     @description = description
   end
 
   def title
-    @description.title
+    description.title
   end
 
   def genre
-    @description.genre
+    description.genre
   end
 
   def duration
-    @info.duration
+    info.duration
   end
 end
