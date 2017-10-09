@@ -4,7 +4,7 @@ require_relative '../src/cinema_repertoire.rb'
 require_relative '../src/cinema_screen.rb'
 require_relative './helpers/movie_helper.rb'
 
-RSpec.describe ':Repertoire:' do
+RSpec.describe 'CinemaRepertoire' do
   before(:each) do
     @repertoire = CinemaRepertoire.new
     @screening =  MovieScreening.new(movie: MovieHelper.create,
@@ -12,19 +12,25 @@ RSpec.describe ':Repertoire:' do
                                        name: 'test',
                                        seat_count: 20
                                      ),
-                                     time: Time.now)
+                                     time: Time.new(2017, 11, 1, 12))
     @overlaping = MovieScreening.new(movie: MovieHelper.create,
                                      cinema_screen: CinemaScreen.new(
                                        name: 'test',
                                        seat_count: 20
                                      ),
-                                     time: Time.now)
+                                     time: Time.new(2017, 11, 1, 12))
+    @non_overlaping = MovieScreening.new(movie: MovieHelper.create,
+                                         cinema_screen: CinemaScreen.new(
+                                           name: 'test',
+                                           seat_count: 20
+                                         ),
+                                         time: Time.new(2017, 12, 1, 12))
     @different_screen = MovieScreening.new(movie: MovieHelper.create,
                                            cinema_screen: CinemaScreen.new(
                                              name: 'different',
                                              seat_count: 20
                                            ),
-                                           time: Time.now)
+                                           time: Time.new(2017, 11, 1, 12))
   end
   it 'should add new screening' do
     @repertoire.add_screening(new_screening: @screening)
@@ -56,6 +62,13 @@ RSpec.describe ':Repertoire:' do
       .to be true
   end
 
+  it 'should add new screning if time does not overlap' do
+    @repertoire.add_screening(new_screening: @screening)
+    @repertoire.add_screening(new_screening: @non_overlaping)
+    expect(@repertoire.movie_screenings.include?(@non_overlaping))
+      .to be true
+  end
+
   it 'should add a new movie' do
     movie = MovieHelper.create
     @repertoire.add_movie(movie: movie)
@@ -82,5 +95,15 @@ RSpec.describe ':Repertoire:' do
     @repertoire.add_movie(movie: in_repertoire)
     expect { @repertoire.del_movie(movie: not_in_repertoire) }
       .to raise_error('cannot delete non existing movie')
+  end
+
+  it 'should not be able to modify movies directly' do
+    expect { @repertoire.movies.push(movie: 'movie') }.to raise_error(NoMethodError)
+    expect(@repertoire.movies.include?('movie')).to be false
+  end
+
+  it 'should not be able to modify screenings directly' do
+    expect { @repertoire.movie_screenings.push(movie: 'movie') }.to raise_error(NoMethodError)
+    expect(@repertoire.movie_screenings.include?('movie')).to be false    
   end
 end

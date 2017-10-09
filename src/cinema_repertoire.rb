@@ -18,13 +18,13 @@ class CinemaRepertoire
   # methods for movie management
   def add_movie(movie:)
     raise 'cannot add existing movie' if
-      @movies.include?(movie)
+      movies.include?(movie)
     @movies.push(movie)
   end
 
   def del_movie(movie:)
     raise 'cannot delete non existing movie' unless
-      @movies.include?(movie)
+      movies.include?(movie)
     @movies.delete(movie)
   end
 
@@ -32,13 +32,13 @@ class CinemaRepertoire
   # right now this can add undefined onjects and mess things up
   def add_screening(new_screening:)
     raise 'cannot add overlaping screening' if
-      @movie_screenings.any? { |screening| colision?(screening, new_screening) }
+      movie_screenings.any? { |screening| colision?(screening, new_screening) }
     @movie_screenings.push(new_screening)
   end
 
   def del_screening(screening:)
     raise 'no such screening found' unless
-      @movie_screenings.include?(screening)
+      movie_screenings.include?(screening)
     @movie_screenings.delete(screening)
   end
 
