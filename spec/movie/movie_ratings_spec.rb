@@ -1,6 +1,6 @@
 require_relative '../../src/movie/movie_ratings.rb'
 
-RSpec.describe '::Movie Ratings' do
+RSpec.describe 'MovieRatings' do
   it 'should return true if movie rating exists' do
     expect(MovieRatings.include?(:PG)).to be true
   end
