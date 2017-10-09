@@ -1,11 +1,11 @@
 require_relative '../../src/movie/movie_genre.rb'
 require_relative '../../src/movie/movie_description.rb'
 
-RSpec.describe '::Movie Description' do
+RSpec.describe 'MovieDescription' do
   it 'should create succesfully when genre is included in MovieGenres' do
     movie_description = MovieDescription.new(
       title: 'Transformers 19: New Beggining',
-      genre: :fantasy,
+      genre: 'fanTasy',
       summary: 'Long before there were transformers there was the CUBE...'
     )
     expect(movie_description.title).to eq 'Transformers 19: New Beggining'
@@ -18,6 +18,6 @@ RSpec.describe '::Movie Description' do
       genre: :donald_duck,
       summary: 'Long before there were transformers there was the CUBE...'
     }
-    expect { MovieDescription.new(description_args) }.to raise_error(ArgumentError)
+    expect { MovieDescription.new(description_args) }.to raise_error('no such genre')
   end
 end
