@@ -1,6 +1,6 @@
 require_relative '../../src/movie/movie_genre.rb'
 
-RSpec.describe '::Movie Genres' do
+RSpec.describe 'MovieGenres' do
   it 'should return true if movie genre exists' do
     expect(MovieGenres.include?(:action)).to be true
   end
