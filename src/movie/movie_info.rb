@@ -5,11 +5,11 @@ require 'time'
 class MovieInfo
   attr_reader :rating, :duration, :release_date, :crew
   def initialize(rating:, duration:, release_date:, crew:)
-    raise ArgumentError unless MovieRatings.include?(rating) &&
-                               release_date.class == Time &&
-                               crew.class == MovieCrew
+    raise 'wrong parameter types' unless MovieRatings.include?(rating) &&
+                                         release_date.class.equal?(Time) &&
+                                         crew.class.equal?(MovieCrew)
     @rating = rating
-    @duration = duration.to_i
+    @duration = Integer(duration)
     @release_date = release_date
     @crew = crew
   end
