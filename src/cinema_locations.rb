@@ -25,17 +25,17 @@ module CinemaLocations
   def self.location?(location, screen)
     location = location.tr('/ /', '_').upcase.to_sym
     @locations.key?(location) &&
-      @locations[location].include?(screen.to_s.capitalize)
+      @locations.fetch(location).include?(screen.to_s)
   end
 
   def self.add(location, screens)
     location = location.tr('/ /', '_').upcase.to_sym
-    screens.map(&:to_s)
-    @locations.merge!(location => screens) unless @locations.key?(location)
+    @locations.merge!(location => screens.map(&:to_s)) unless @locations.key?(location)
   end
 
   def self.del(location)
     location = location.tr('/ /', '_').upcase.to_sym
-    @locations.delete(location) if @locations.key?(location)
+    raise 'no such location' unless @locations.key?(location)
+    @locations.delete(location)
   end
 end
