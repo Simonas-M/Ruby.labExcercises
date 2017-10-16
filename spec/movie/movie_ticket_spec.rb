@@ -12,11 +12,22 @@ RSpec.describe 'MovieTicket' do
       time: @time
     )
     @ticket = MovieTicket.new(
-      price: 1.2,
+      price: '1.2',
       movie_screening: @movie_screening,
-      seat_no: 33
+      seat_no: '33'
     )
   end
+
+  it 'should raise if not MovieScreening object was passed' do
+    expect do
+      MovieTicket.new(
+        price: '1.2',
+        movie_screening: 'not',
+        seat_no: '33'
+      )
+    end.to raise_error('MovieScreening object expected')
+  end
+
   it 'should get the price' do
     expect(@ticket.price).to eq 1.2
   end
