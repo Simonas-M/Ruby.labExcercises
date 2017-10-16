@@ -48,13 +48,13 @@ RSpec.describe 'MovieInfo' do
   it 'should get rating' do
     expect(@movie_info.rating).to eq(:PG13)
   end
-  it 'should get rating' do
+  it 'should get duration' do
     expect(@movie_info.duration).to eq(120_000)
   end
-  it 'should get rating' do
+  it 'should get release date' do
     expect(@movie_info.release_date).to eq(Time.new('2017-01-01'))
   end
-  it 'should get rating' do
+  it 'should get crew' do
     expect(@movie_info.crew).to eq(@movie_crew)
   end
 end
