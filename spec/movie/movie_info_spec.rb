@@ -24,26 +24,32 @@ RSpec.describe 'MovieInfo' do
     # no parameters
     expect { MovieInfo.new }.to raise_error(ArgumentError)
     # wrong rating
-    expect { MovieInfo.new({
-      rating: :HAHA,
-      duration: '120_000',
-      release_date: Time.new('2017-01-01'),
-      crew: @movie_crew
-    }) }.to raise_error('wrong parameter types')
+    expect do
+      MovieInfo.new(
+        rating: :HAHA,
+        duration: '120_000',
+        release_date: Time.new('2017-01-01'),
+        crew: @movie_crew
+      )
+    end.to raise_error('wrong parameter types')
     # wrong release_date
-    expect { MovieInfo.new({
-      rating: :PG13,
-      duration: '120_000',
-      release_date: 'not time',
-      crew: @movie_crew
-    }) }.to raise_error('wrong parameter types')
+    expect do
+      MovieInfo.new(
+        rating: :PG13,
+        duration: '120_000',
+        release_date: 'not time',
+        crew: @movie_crew
+      )
+    end.to raise_error('wrong parameter types')
     # wrong crew
-    expect { MovieInfo.new({
-      rating: :PG13,
-      duration: '120_000',
-      release_date: Time.new('2017-01-01'),
-      crew: 'not movie_crew'
-    }) }.to raise_error('wrong parameter types')
+    expect do
+      MovieInfo.new(
+        rating: :PG13,
+        duration: '120_000',
+        release_date: Time.new('2017-01-01'),
+        crew: 'not movie_crew'
+      )
+    end.to raise_error('wrong parameter types')
   end
   it 'should get rating' do
     expect(@movie_info.rating).to eq(:PG13)

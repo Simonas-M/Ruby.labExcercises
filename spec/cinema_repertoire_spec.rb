@@ -98,12 +98,14 @@ RSpec.describe 'CinemaRepertoire' do
   end
 
   it 'should not be able to modify movies directly' do
-    expect { @repertoire.movies.push(movie: 'movie') }.to raise_error(NoMethodError)
+    expect { @repertoire.movies.push(movie: 'movie') }
+      .to raise_error(NoMethodError)
     expect(@repertoire.movies.include?('movie')).to be false
   end
 
   it 'should not be able to modify screenings directly' do
-    expect { @repertoire.movie_screenings.push(movie: 'movie') }.to raise_error(NoMethodError)
-    expect(@repertoire.movie_screenings.include?('movie')).to be false    
+    expect { @repertoire.movie_screenings.push(movie: 'movie') }
+      .to raise_error(NoMethodError)
+    expect(@repertoire.movie_screenings.include?('movie')).to be false
   end
 end

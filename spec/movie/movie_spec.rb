@@ -30,8 +30,10 @@ RSpec.describe 'Movie' do
     expect { Movie.new(@movie_info) }.to raise_error(ArgumentError)
   end
   it "shouldn't initialize with wrong parameters" do
-    expect { Movie.new(@movie_info, 'b') }.to raise_error('wrong parameter types')
-    expect { Movie.new('a', @movie_description) }.to raise_error('wrong parameter types')
+    expect { Movie.new(@movie_info, 'b') }
+      .to raise_error('wrong parameter types')
+    expect { Movie.new('a', @movie_description) }
+      .to raise_error('wrong parameter types')
     expect { Movie.new('a', 'b') }.to raise_error('wrong parameter types')
   end
   it 'should initialize with MovieInfo and MovieDescription' do

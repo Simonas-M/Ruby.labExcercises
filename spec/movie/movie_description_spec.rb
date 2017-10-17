@@ -6,18 +6,19 @@ RSpec.describe 'MovieDescription' do
     movie_description = MovieDescription.new(
       title: 'Transformers 19: New Beggining',
       genre: 'fanTasy',
-      summary: 'Long before there were transformers there was the CUBE...'
+      summary: 'long summary'
     )
     expect(movie_description.title).to eq 'Transformers 19: New Beggining'
     expect(movie_description.genre).to eq :FANTASY
-    expect(movie_description.summary).to eq 'Long before there were transformers there was the CUBE...'
+    expect(movie_description.summary).to eq 'long summary'
   end
   it 'should raise error when genre is not included in MovieGenres' do
     description_args = {
       title: 'Transformers 19: New Beggining',
       genre: :donald_duck,
-      summary: 'Long before there were transformers there was the CUBE...'
+      summary: 'long summary'
     }
-    expect { MovieDescription.new(description_args) }.to raise_error('no such genre')
+    expect { MovieDescription.new(description_args) }
+      .to raise_error('no such genre')
   end
 end

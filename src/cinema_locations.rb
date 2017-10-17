@@ -30,7 +30,8 @@ module CinemaLocations
 
   def self.add(location, screens)
     location = location.tr('/ /', '_').upcase.to_sym
-    @locations.merge!(location => screens.map(&:to_s)) unless @locations.key?(location)
+    @locations.merge!(location => screens.map(&:to_s)) unless
+      @locations.key?(location)
   end
 
   def self.del(location)
