@@ -1,4 +1,4 @@
-require 'time_frame'
+require_relative './helpers/movie_screening_helper.rb'
 
 # class for movie screening management
 class CinemaRepertoire
@@ -31,8 +31,7 @@ class CinemaRepertoire
   # methods for movie screening management
   # right now this can add undefined onjects and mess things up
   def add_screening(new_screening:)
-    raise 'cannot add overlaping screening' if
-      movie_screenings.any? { |screening| colision?(screening, new_screening) }
+    raise 'cannot add overlaping screening' if overlaps?(new_screening)
     @movie_screenings.push(new_screening)
   end
 
@@ -44,12 +43,9 @@ class CinemaRepertoire
 
   private
 
-  def colision?(screening, new_screening)
-    time_frame1 = TimeFrame.new(min: screening.time,
-                                duration: screening.movie.duration)
-    time_frame2 = TimeFrame.new(min: new_screening.time,
-                                duration: new_screening.movie.duration)
-    time_frame1.overlaps?(time_frame2) &&
-      screening.cinema_screen == new_screening.cinema_screen
+  def overlaps?(new_screening)
+    movie_screenings.any? do |screening|
+      MovieScreeningHelper.overlaps?(screening, new_screening)
+    end
   end
 end
