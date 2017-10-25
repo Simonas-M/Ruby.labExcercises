@@ -100,11 +100,11 @@
       ]
     }
   },
-  "tickets":[
-    {
+  "tickets":{
+    "00001": {
       "price": 5.7,
       "movie_screening_id": "00001",
       "seat_no": 3
     }
-  ]
+  }
 }
