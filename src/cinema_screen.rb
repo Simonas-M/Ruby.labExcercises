@@ -10,4 +10,14 @@ class CinemaScreen
     @name == other.name &&
       @seat_count == other.seat_count
   end
+
+  def to_json
+    %(
+    {"name": "#{name}",\
+    "seat_count": #{seat_count}}).chomp
+  end
+
+  def self.create_from_hash(_serial, hash)
+    new(name: hash['name'], seat_count: hash['seat_count'])
+  end
 end

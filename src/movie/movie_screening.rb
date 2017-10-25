@@ -25,4 +25,18 @@ class MovieScreening
   def available?(seat_count)
     seat_count <= available_seat_count
   end
+
+  def to_json
+    %({"movie_id": "#{movie.object_id}",\
+    "cinema_screen_id": "#{cinema_screen.object_id}",\
+    "time": "#{time.utc.to_i_to_s}",\
+    "available_seat_count": #{available_seat_count}}).chomp
+  end
+
+  def self.create_from_hash(serial, hash)
+    new(movie: serial['Movie'][hash['movie_id']],
+        cinema_screen: serial['CinemaScreen'][hash['cinema_screen_id']],
+        time: hash['time'],
+        available_seat_count: hash['available_seat_count'])
+  end
 end

@@ -24,4 +24,14 @@ class Movie
   def duration
     info.duration
   end
+
+  def to_json
+    %({"info": "#{info.objet_id}",\
+    "description": "#{description.object_id}"}).chomp
+  end
+
+  def self.create_from_hash(serial, hash)
+    new(info: serial['MovieInfo'][hash['info_id']],
+        description: serial['MovieDescription'][hash['description_id']])
+  end
 end
