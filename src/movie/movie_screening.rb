@@ -1,10 +1,12 @@
+require 'time'
+
 # movie session class for Movie repertoire
 class MovieScreening
   attr_reader :movie, :cinema_screen, :time, :available_seat_count
   def initialize(movie:, cinema_screen:, time:)
     @movie = movie
     @cinema_screen = cinema_screen
-    @time = time
+    @time = time.utc
     @available_seat_count = cinema_screen.seat_count
   end
 
@@ -29,14 +31,14 @@ class MovieScreening
   def to_json
     %({"movie_id": "#{movie.object_id}",\
     "cinema_screen_id": "#{cinema_screen.object_id}",\
-    "time": "#{time.utc.to_i_to_s}",\
-    "available_seat_count": #{available_seat_count}}).chomp
+    "time": #{Integer(time)},\
+    "available_seat_count": #{available_seat_count}})
   end
 
-  def self.create_from_hash(serial, hash)
-    new(movie: serial['Movie'][hash['movie_id']],
-        cinema_screen: serial['CinemaScreen'][hash['cinema_screen_id']],
-        time: hash['time'],
-        available_seat_count: hash['available_seat_count'])
+  def self.hash_create(serial, hash)
+    new(movie: serial.fetch(:Movie).fetch(hash.fetch(:movie_id)),
+        cinema_screen: serial.fetch(:CinemaScreen)
+                             .fetch(hash.fetch(:cinema_screen_id)),
+        time: Time.at(hash.fetch(:time)))
   end
 end
