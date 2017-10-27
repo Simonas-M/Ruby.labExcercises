@@ -1,7 +1,14 @@
-require_relative '../../src/movie/movie_genre.rb'
 require_relative '../../src/movie/movie_description.rb'
+require_relative '../../src/movie/movie_genre.rb'
 
 RSpec.describe 'MovieDescription' do
+  before(:each) do
+    @description_args = {
+      title: 'Stranger Things',
+      genre: :MYSTERY,
+      summary: 'summary'
+    }
+  end
   it 'should create succesfully when genre is included in MovieGenres' do
     movie_description = MovieDescription.new(
       title: 'Transformers 19: New Beggining',
@@ -20,5 +27,20 @@ RSpec.describe 'MovieDescription' do
     }
     expect { MovieDescription.new(description_args) }
       .to raise_error('no such genre')
+  end
+
+  it 'should serialize to json' do
+    movie_description = MovieDescription.new(@description_args)
+    serialized_hash = JSON.parse(movie_description.to_json)
+    expect(serialized_hash['title']).to eq(movie_description.title)
+    expect(serialized_hash['genre']).to eq(movie_description.genre.to_s)
+    expect(serialized_hash['summary']).to eq(movie_description.summary)
+  end
+
+  it 'should deserialize hash to object' do
+    from_hash = MovieDescription.hash_create(nil, @description_args)
+    expect(from_hash.title).to eq 'Stranger Things'
+    expect(from_hash.genre).to eq :MYSTERY
+    expect(from_hash.summary).to eq 'summary'
   end
 end

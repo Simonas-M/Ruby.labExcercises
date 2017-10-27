@@ -13,14 +13,14 @@ class MovieDescription
   end
 
   def to_json
-    %({"title": "#{title}",\
-    "genre": "#{genre}",\
-    "summary": "#{summary}"}).chomp
+    %({"title":"#{title}",\
+    "genre":"#{genre}",\
+    "summary":"#{summary}"})
   end
 
-  def self.create_from_hash(_serial, hash)
-    new(title: hash['title'],
-        genre: hash['seat_count'],
-        summary: hash['summary'])
+  def self.hash_create(_serial, hash)
+    new(title: hash.fetch(:title),
+        genre: hash.fetch(:genre),
+        summary: hash.fetch(:summary))
   end
 end
