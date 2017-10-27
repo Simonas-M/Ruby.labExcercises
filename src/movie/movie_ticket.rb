@@ -12,14 +12,15 @@ class MovieTicket
   end
 
   def to_json
-    %({"price": "#{price}",\
+    %({"price": #{price},\
     "movie_screening_id": "#{movie_screening.object_id}",\
-    "seat_no": #{seat_no}}).chomp
+    "seat_no": #{seat_no}})
   end
 
-  def self.create_from_hash(serial, hash)
-    new(price: hash['price'],
-        movie_screening: serial['MovieScreening'][hash['movie_screening_id']],
-        seat_no: hash['seat_no'])
+  def self.hash_create(serial, hash)
+    new(price: hash.fetch(:price),
+        movie_screening: serial.fetch(:MovieScreening)
+                               .fetch(hash.fetch(:movie_screening_id)),
+        seat_no: hash.fetch(:seat_no))
   end
 end
