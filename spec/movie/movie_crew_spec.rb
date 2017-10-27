@@ -27,7 +27,7 @@ RSpec.describe 'MovieCrew' do
     expect(serialized_hash['actors']).to eq(@movie_crew.actors)
   end
 
-  it 'should deserialize json to object' do
+  it 'should deserialize hash to object' do
     serialized_hash = {
       directors: %w[Papa John],
       writers: ['Lilly Wonka'],
