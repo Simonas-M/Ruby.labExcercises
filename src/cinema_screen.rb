@@ -12,12 +12,11 @@ class CinemaScreen
   end
 
   def to_json
-    %(
-    {"name": "#{name}",\
-    "seat_count": #{seat_count}}).chomp
+    %({"name":"#{name}",\
+    "seat_count": #{seat_count}})
   end
 
-  def self.create_from_hash(_serial, hash)
-    new(name: hash['name'], seat_count: hash['seat_count'])
+  def self.hash_create(_serial, hash)
+    new(name: hash.fetch(:name), seat_count: hash.fetch(:seat_count))
   end
 end
