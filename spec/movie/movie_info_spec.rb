@@ -10,7 +10,7 @@ RSpec.describe 'MovieInfo' do
       actors: %w[Rick Morty]
     )
     @info_args = {
-      rating: :PG13,
+      rating: 'pg13',
       duration: '120_000',
       release_date: Time.new('2017-01-01'),
       crew: @movie_crew
@@ -51,16 +51,37 @@ RSpec.describe 'MovieInfo' do
       )
     end.to raise_error('wrong parameter types')
   end
-  it 'should get rating' do
-    expect(@movie_info.rating).to eq(:PG13)
+
+  it 'should get rating as upcase symbol' do
+    expect(@movie_info.rating).to eq :PG13
   end
-  it 'should get duration' do
-    expect(@movie_info.duration).to eq(120_000)
+
+  it 'should serialize to json' do
+    serialized_hash = JSON.parse(@movie_info.to_json)
+    expect(serialized_hash['rating']).to eq(@movie_info.rating.to_s)
+    expect(serialized_hash['duration']).to eq(@movie_info.duration)
+    expect(serialized_hash['release_date'])
+      .to eq(@movie_info.release_date.utc.strftime('%Y-%m-%d'))
+    expect(serialized_hash['crew_id']).to eq(@movie_info.crew.object_id.to_s)
   end
-  it 'should get release date' do
-    expect(@movie_info.release_date).to eq(Time.new('2017-01-01'))
-  end
-  it 'should get crew' do
-    expect(@movie_info.crew).to eq(@movie_crew)
+
+  it 'should deserialize hash to object' do
+    serialized_hash = {
+      MovieCrew: {
+        '80085' => @movie_crew
+      },
+      MovieInfo: {
+        rating: :PG13,
+        duration: 120_000,
+        release_date: '2017-01-01',
+        crew_id: '80085'
+      }
+    }
+    from_hash = MovieInfo
+                .hash_create(serialized_hash, serialized_hash[:MovieInfo])
+    expect(from_hash.rating).to eq :PG13
+    expect(from_hash.duration).to eq 120_000
+    expect(from_hash.release_date).to eq Time.utc('2017-01-01')
+    expect(from_hash.crew).to eq @movie_crew
   end
 end
