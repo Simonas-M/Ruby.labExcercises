@@ -14,3 +14,5 @@ gem "rake", "~> 12.1"
 
 # Added at 2017-10-07 22:48:04 +0300 by root:
 gem "abstract_type", "~> 0.0.7"
+
+gem "json"

@@ -8,14 +8,14 @@ class MovieCrew
   end
 
   def to_json
-    %({"directors": "#{directors}",\
-    "writers": "#{writers}",\
-    "actors": "#{actors}"}).chomp
+    %({"directors":#{directors},\
+    "writers":#{writers},\
+    "actors":#{actors}})
   end
 
-  def self.create_from_hash(_serial, hash)
-    new(directors: hash['directors'],
-        writers: hash['writers'],
-        actors: hash['actors'])
+  def self.hash_create(_serial, hash)
+    new(directors: hash.fetch(:directors),
+        writers: hash.fetch(:writers),
+        actors: hash.fetch(:actors))
   end
 end

@@ -129,6 +129,7 @@ PLATFORMS
 
 DEPENDENCIES
   abstract_type (~> 0.0.7)
+  json
   mutant
   mutant-rspec
   rake (~> 12.1)
