@@ -31,7 +31,7 @@ def create_movie_description
   MovieDescription.new(title: title, genre: genre, summary: summary)
 end
 
-#returns a MovieCrew object
+# returns a MovieCrew object
 def create_movie_crew
   UI.send_message 'Enter movie director(s): (to stop enter blank)'
   directors = UI.receive_multi_input

@@ -42,7 +42,7 @@ end
 
 def process_restore_session
   deserialized_objects = @session_manager.restore_session
-  @cinema.repertoire.add_movies(movies: deserialized_objects['Movie'])
+  @cinema.repertoire.add_movies(movies: deserialized_objects['Movie'].values)
 end
 
 # program start
