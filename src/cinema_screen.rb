@@ -11,12 +11,14 @@ class CinemaScreen
       seat_count.eql?(other.seat_count)
   end
 
-  def to_json
-    %({"name":"#{name}",\
-    "seat_count":#{seat_count}})
+  def to_hash
+    {
+      name: name,
+      seat_count: seat_count
+    }
   end
 
   def self.hash_create(_serial, hash)
-    new(name: hash.fetch(:name), seat_count: hash.fetch(:seat_count))
+    new(name: hash.fetch('name'), seat_count: hash.fetch('seat_count'))
   end
 end

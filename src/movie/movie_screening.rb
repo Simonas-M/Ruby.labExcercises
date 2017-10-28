@@ -28,17 +28,19 @@ class MovieScreening
     seat_count <= available_seat_count
   end
 
-  def to_json
-    %({"movie_id": "#{movie.object_id}",\
-    "cinema_screen_id": "#{cinema_screen.object_id}",\
-    "time": #{Integer(time)},\
-    "available_seat_count": #{available_seat_count}})
+  def to_hash
+    {
+      movie_id: movie.object_id.to_s,
+      cinema_screen_id: cinema_screen.object_id.to_s,
+      time: Integer(time),
+      available_seat_count: available_seat_count
+    }
   end
 
   def self.hash_create(serial, hash)
-    new(movie: serial.fetch(:Movie).fetch(hash.fetch(:movie_id)),
-        cinema_screen: serial.fetch(:CinemaScreen)
-                             .fetch(hash.fetch(:cinema_screen_id)),
-        time: Time.at(hash.fetch(:time)))
+    new(movie: serial.fetch('Movie').fetch(hash.fetch('movie_id')),
+        cinema_screen: serial.fetch('CinemaScreen')
+                             .fetch(hash.fetch('cinema_screen_id')),
+        time: Time.at(hash.fetch('time')))
   end
 end

@@ -14,17 +14,19 @@ class MovieInfo
     @crew = crew
   end
 
-  def to_json
-    %({"rating":"#{rating}",\
-    "duration":#{duration},\
-    "release_date":"#{release_date.utc.strftime('%Y-%m-%d')}",\
-    "crew_id":"#{crew.object_id}"})
+  def to_hash
+    {
+      rating: rating.to_s,
+      duration: duration,
+      release_date: release_date.utc.strftime('%Y-%m-%d'),
+      crew_id: crew.object_id.to_s
+    }
   end
 
   def self.hash_create(serial, hash)
-    new(rating: hash.fetch(:rating),
-        duration: hash.fetch(:duration),
-        release_date: Time.utc(hash.fetch(:release_date)),
-        crew: serial.fetch(:MovieCrew).fetch(hash.fetch(:crew_id)))
+    new(rating: hash.fetch('rating'),
+        duration: hash.fetch('duration'),
+        release_date: Time.utc(hash.fetch('release_date')),
+        crew: serial.fetch('MovieCrew').fetch(hash.fetch('crew_id')))
   end
 end

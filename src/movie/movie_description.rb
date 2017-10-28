@@ -12,15 +12,17 @@ class MovieDescription
     @summary = summary
   end
 
-  def to_json
-    %({"title":"#{title}",\
-    "genre":"#{genre}",\
-    "summary":"#{summary}"})
+  def to_hash
+    {
+      title: title,
+      genre: genre.to_s,
+      summary: summary
+    }
   end
 
   def self.hash_create(_serial, hash)
-    new(title: hash.fetch(:title),
-        genre: hash.fetch(:genre),
-        summary: hash.fetch(:summary))
+    new(title: hash.fetch('title'),
+        genre: hash.fetch('genre'),
+        summary: hash.fetch('summary'))
   end
 end

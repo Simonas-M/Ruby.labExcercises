@@ -2,9 +2,9 @@ require_relative './cinema_repertoire.rb'
 
 # Class for central cinema object
 class Cinema
-  attr_reader :cinema_screens
-  def initialize(cinema_screens:)
-    @cinema_screens = cinema_screens
+  attr_reader :screens, :repertoire
+  def initialize
+    @screens = []
     @repertoire = CinemaRepertoire.new
   end
 end

@@ -22,6 +22,10 @@ class CinemaRepertoire
     @movies.push(movie)
   end
 
+  def add_movies(movies:)
+    movies.each { |movie| add_movie(movie: movie) }
+  end
+
   def del_movie(movie:)
     raise 'cannot delete non existing movie' unless
       movies.include?(movie)

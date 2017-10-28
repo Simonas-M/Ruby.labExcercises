@@ -7,15 +7,17 @@ class MovieCrew
     @actors = actors
   end
 
-  def to_json
-    %({"directors":#{directors},\
-    "writers":#{writers},\
-    "actors":#{actors}})
+  def to_hash
+    {
+      directors: directors,
+      writers: writers,
+      actors: actors
+    }
   end
 
   def self.hash_create(_serial, hash)
-    new(directors: hash.fetch(:directors),
-        writers: hash.fetch(:writers),
-        actors: hash.fetch(:actors))
+    new(directors: hash.fetch('directors'),
+        writers: hash.fetch('writers'),
+        actors: hash.fetch('actors'))
   end
 end
