@@ -7,13 +7,13 @@ class CinemaScreen
   end
 
   def ==(other)
-    @name == other.name &&
-      @seat_count == other.seat_count
+    name.eql?(other.name) &&
+      seat_count.eql?(other.seat_count)
   end
 
   def to_json
     %({"name":"#{name}",\
-    "seat_count": #{seat_count}})
+    "seat_count":#{seat_count}})
   end
 
   def self.hash_create(_serial, hash)

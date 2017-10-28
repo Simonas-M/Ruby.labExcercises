@@ -1,6 +1,6 @@
 require_relative '../src/cinema_screen.rb'
 
-RSpec.describe ':Cinema Screen:' do
+RSpec.describe 'CinemaScreen' do
   before(:each) do
     @cinema_screen = CinemaScreen.new(name: 'test', seat_count: 40)
   end
@@ -11,6 +11,26 @@ RSpec.describe ':Cinema Screen:' do
 
   it 'should get cinema screen seat count' do
     expect(@cinema_screen.seat_count).to eq(40)
+  end
+
+  it 'should equal to cinema screen with same name and seat count' do
+    same_screen = CinemaScreen.new(name: 'test', seat_count: 40)
+    expect(@cinema_screen).to eq(same_screen)
+  end
+
+  it 'should not equal to cinema screen with different name and seat count' do
+    diff_screen = CinemaScreen.new(name: 'test1', seat_count: 42)
+    expect(@cinema_screen).not_to eq(diff_screen)
+  end
+
+  it 'should not equal to other with different name and same seat count' do
+    diff_screen = CinemaScreen.new(name: 'test1', seat_count: 40)
+    expect(@cinema_screen).not_to eq(diff_screen)
+  end
+
+  it 'should not equal to other with same name and different seat count' do
+    diff_screen = CinemaScreen.new(name: 'test', seat_count: 42)
+    expect(@cinema_screen).not_to eq(diff_screen)
   end
 
   it 'should serialize to json' do
