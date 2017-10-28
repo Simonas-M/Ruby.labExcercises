@@ -45,34 +45,34 @@ RSpec.describe 'MovieScreening' do
     expect(@movie_screening.available?(40)).to be true
   end
 
-  it 'should serialize to json' do
-    serialized_hash = JSON.parse(@movie_screening.to_json)
-    expect(serialized_hash['movie_id'])
+  it 'should serialize to hash' do
+    serialized_hash = @movie_screening.to_hash
+    expect(serialized_hash[:movie_id])
       .to eq(@movie_screening.movie.object_id.to_s)
-    expect(serialized_hash['cinema_screen_id'])
+    expect(serialized_hash[:cinema_screen_id])
       .to eq(@movie_screening.cinema_screen.object_id.to_s)
-    expect(serialized_hash['time'])
+    expect(serialized_hash[:time])
       .to eq(@movie_screening.time.utc.to_i)
-    expect(serialized_hash['available_seat_count'])
+    expect(serialized_hash[:available_seat_count])
       .to eq(@movie_screening.available_seat_count)
   end
 
   it 'should deserialize hash to object' do
     serialized_hash = {
-      Movie: {
+      'Movie' => {
         '001' => @movie
       },
-      CinemaScreen: {
+      'CinemaScreen' => {
         '123' => @cinema_screen
       },
-      MovieScreening: {
-        movie_id: '001',
-        cinema_screen_id: '123',
-        time: 1_509_112_692
+      'MovieScreening' => {
+        'movie_id' => '001',
+        'cinema_screen_id' => '123',
+        'time' => 1_509_112_692
       }
     }
     from_hash = MovieScreening
-                .hash_create(serialized_hash, serialized_hash[:MovieScreening])
+                .hash_create(serialized_hash, serialized_hash['MovieScreening'])
     expect(from_hash.movie).to eq @movie
     expect(from_hash.cinema_screen).to eq @cinema_screen
     expect(from_hash.time).to eq Time.at(1_509_112_692).utc

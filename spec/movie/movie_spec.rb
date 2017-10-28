@@ -23,12 +23,15 @@ RSpec.describe 'Movie' do
       summary: 'summary'
     )
   end
+
   it "shouldn't initialize without parameters" do
     expect { Movie.new }.to raise_error(ArgumentError)
   end
+
   it "shouldn't initialize without description" do
     expect { Movie.new(@movie_info) }.to raise_error(ArgumentError)
   end
+
   it "shouldn't initialize with wrong parameters" do
     expect { Movie.new(@movie_info, 'b') }
       .to raise_error('wrong parameter types')
@@ -36,10 +39,37 @@ RSpec.describe 'Movie' do
       .to raise_error('wrong parameter types')
     expect { Movie.new('a', 'b') }.to raise_error('wrong parameter types')
   end
+
   it 'should initialize with MovieInfo and MovieDescription' do
     movie = Movie.new(@movie_info, @movie_description)
     expect(movie.title).to eq 'title'
     expect(movie.genre).to eq :ACTION
     expect(movie.duration).to eq 1000
+  end
+
+  it 'should serialize to hash' do
+    movie =  Movie.new(@movie_info, @movie_description)
+    serialized_hash = movie.to_hash
+    expect(serialized_hash[:info_id]).to eq(movie.info.object_id.to_s)
+    expect(serialized_hash[:description_id])
+      .to eq(movie.description.object_id.to_s)
+  end
+
+  it 'should deserialize hash to object' do
+    serialized_hash = {
+      'Movie' => {
+        'info_id' => '002',
+        'description_id' => '002'
+      },
+      'MovieInfo' => {
+        '002' => @movie_info
+      },
+      'MovieDescription' => {
+        '002' => @movie_description
+      }
+    }
+    from_hash = Movie.hash_create(serialized_hash, serialized_hash['Movie'])
+    expect(from_hash.info).to eq @movie_info
+    expect(from_hash.description).to eq @movie_description
   end
 end

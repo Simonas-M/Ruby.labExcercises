@@ -29,16 +29,21 @@ RSpec.describe 'MovieDescription' do
       .to raise_error('no such genre')
   end
 
-  it 'should serialize to json' do
+  it 'should serialize to hash' do
     movie_description = MovieDescription.new(@description_args)
-    serialized_hash = JSON.parse(movie_description.to_json)
-    expect(serialized_hash['title']).to eq(movie_description.title)
-    expect(serialized_hash['genre']).to eq(movie_description.genre.to_s)
-    expect(serialized_hash['summary']).to eq(movie_description.summary)
+    serialized_hash = movie_description.to_hash
+    expect(serialized_hash[:title]).to eq(movie_description.title)
+    expect(serialized_hash[:genre]).to eq(movie_description.genre.to_s)
+    expect(serialized_hash[:summary]).to eq(movie_description.summary)
   end
 
   it 'should deserialize hash to object' do
-    from_hash = MovieDescription.hash_create(nil, @description_args)
+    serialized_hash = {
+      'title' => 'Stranger Things',
+      'genre' => 'MYSTERY',
+      'summary' => 'summary'
+    }
+    from_hash = MovieDescription.hash_create(nil, serialized_hash)
     expect(from_hash.title).to eq 'Stranger Things'
     expect(from_hash.genre).to eq :MYSTERY
     expect(from_hash.summary).to eq 'summary'

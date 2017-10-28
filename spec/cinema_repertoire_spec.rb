@@ -75,6 +75,13 @@ RSpec.describe 'CinemaRepertoire' do
     expect(@repertoire.movies.include?(movie)).to be true
   end
 
+  it 'should add multiple movies' do
+    movie = MovieHelper.create
+    @repertoire.add_movies(movies: [movie, @non_overlaping])
+    expect(@repertoire.movies.include?(movie)).to be true
+    expect(@repertoire.movies.include?(@non_overlaping)).to be true
+  end
+
   it 'should not add same movie' do
     movie = MovieHelper.create
     @repertoire.add_movie(movie: movie)

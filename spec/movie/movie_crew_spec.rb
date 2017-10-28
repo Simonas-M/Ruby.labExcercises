@@ -20,18 +20,18 @@ RSpec.describe 'MovieCrew' do
     expect { MovieCrew.new }.to raise_error(ArgumentError)
   end
 
-  it 'should serialize to json' do
-    serialized_hash = JSON.parse(@movie_crew.to_json)
-    expect(serialized_hash['directors']).to eq(@movie_crew.directors)
-    expect(serialized_hash['writers']).to eq(@movie_crew.writers)
-    expect(serialized_hash['actors']).to eq(@movie_crew.actors)
+  it 'should serialize to hash' do
+    serialized_hash = @movie_crew.to_hash
+    expect(serialized_hash[:directors]).to eq(@movie_crew.directors)
+    expect(serialized_hash[:writers]).to eq(@movie_crew.writers)
+    expect(serialized_hash[:actors]).to eq(@movie_crew.actors)
   end
 
   it 'should deserialize hash to object' do
     serialized_hash = {
-      directors: %w[Papa John],
-      writers: ['Lilly Wonka'],
-      actors: %w[Frodo Bilbo Gandalf]
+      'directors' => %w[Papa John],
+      'writers' => ['Lilly Wonka'],
+      'actors' => %w[Frodo Bilbo Gandalf]
     }
     from_hash = MovieCrew.hash_create(nil, serialized_hash)
     expect(from_hash.directors).to eq %w[Papa John]
