@@ -39,3 +39,28 @@ def create_movie_crew
   actors = UI.receive_multi_input
   MovieCrew.new(directors: directors, writers: writers, actors: actors)
 end
+
+def create_movie_screening
+  UI.send_message 'Select movie:'
+  movie = UI.receive_list_item(@cinema.repertoire.movies)
+  UI.send_message 'Select cinema screen:'
+  screen = UI.receive_list_item(@cinema.screens)
+  UI.send_message 'Enter screening date:'
+  date = UI.receive_date_input
+  UI.send_message 'Enter screening time:'
+  time = UI.receive_time_input
+  date_time = format_date(date, time)
+  MovieScreening.new(movie: movie, cinema_screen: screen, time: date_time)
+end
+
+def format_date(date, time)
+  date.to_time.utc + (time[:hour] * 3_600 + time[:minute] * 60)
+end
+
+def create_cinema_screen
+  UI.send_message 'Enter cinema screen name:'
+  name = UI.receive_input
+  UI.send_message 'Enter seat count:'
+  seat_count = UI.receive_integer_input
+  CinemaScreen.new(name: name, seat_count: seat_count)
+end

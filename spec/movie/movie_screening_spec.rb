@@ -5,7 +5,7 @@ require 'time'
 
 RSpec.describe 'MovieScreening' do
   before(:each) do
-    @time = Time.now
+    @time = Time.at(151_521_512)
     @movie = MovieHelper.create
     @cinema_screen = CinemaScreen.new(name: 'test', seat_count: 40)
     @movie_screening = MovieScreening.new(
@@ -77,5 +77,10 @@ RSpec.describe 'MovieScreening' do
     expect(from_hash.cinema_screen).to eq @cinema_screen
     expect(from_hash.time).to eq Time.at(1_509_112_692).utc
     expect(from_hash.available_seat_count).to eq 40
+  end
+
+  it 'should stringify' do
+    expect(@movie_screening.to_s)
+      .to eq "\nDefault\nPG | test\n1974-10-20 17h 18min"
   end
 end

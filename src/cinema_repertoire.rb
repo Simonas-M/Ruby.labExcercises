@@ -39,6 +39,10 @@ class CinemaRepertoire
     @movie_screenings.push(new_screening)
   end
 
+  def add_screenings(screenings:)
+    screenings.each { |screening| add_screening(new_screening: screening) }
+  end
+
   def del_screening(screening:)
     raise 'no such screening found' unless
       movie_screenings.include?(screening)

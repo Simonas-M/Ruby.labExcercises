@@ -72,4 +72,10 @@ RSpec.describe 'Movie' do
     expect(from_hash.info).to eq @movie_info
     expect(from_hash.description).to eq @movie_description
   end
+
+  it 'should stringify' do
+    movie = Movie.new(@movie_info, @movie_description)
+    expect(movie.to_s)
+      .to eq "\nTitle (2017)\nPG | 00h 16min | ACTION | 2017-10-29\nsummary"
+  end
 end

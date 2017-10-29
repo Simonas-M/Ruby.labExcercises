@@ -1,8 +1,11 @@
 require 'date'
 # User interface class for Cinema
 class ConsoleUserInterface
-  def list(things)
-    things.each.with_index { |thing, index| puts "#{index + 1}. #{thing}" }
+  def list(things, seperate = false)
+    things.each.with_index do |thing, index|
+      puts "#{index + 1}. #{thing}"
+      puts '==================================' if seperate
+    end
   end
 
   def receive_input
@@ -25,10 +28,10 @@ class ConsoleUserInterface
     multi_input.uniq
   end
 
-  def receive_integer_input
+  def receive_integer_input(*range)
     return Integer(receive_input)
   rescue ArgumentError
-    send_message('Please enter a number')
+    send_message('Please enter a number:' + range.to_s)
     receive_integer_input
   end
 
@@ -37,6 +40,12 @@ class ConsoleUserInterface
     return valid_date?(date, format) if valid_date?(date, format)
     send_message('Please enter date in YYYY-MM-DD format:')
     receive_date_input(format)
+  end
+
+  def receive_time_input
+    hour = receive_integer_input(0..23) until (0..23).cover?(hour)
+    minute = receive_integer_input(0..59) until (0..59).cover?(minute)
+    { hour: hour, minute: minute }
   end
 
   def receive_list_item(array)
@@ -56,12 +65,12 @@ class ConsoleUserInterface
   def retreive_item(array)
     input = receive_integer_input - 1
     raise ArgumentError, 'Number is not in range' unless
-      Range.new(0, array.length).include?(input)
-    array[input]
+      (0..array.count).cover?(input)
+    array.take(input + 1).last
   end
 
   def valid_date?(str, format = '%Y-%m-%d')
-    Date.strptime(str, format)
+    Date.strptime(str, format).to_time + Time.now.utc_offset
   rescue
     false
   end

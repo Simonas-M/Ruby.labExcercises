@@ -32,9 +32,16 @@ RSpec.describe 'CinemaRepertoire' do
                                            ),
                                            time: Time.new(2017, 11, 1, 12))
   end
+
   it 'should add new screening' do
     @repertoire.add_screening(new_screening: @screening)
     expect(@repertoire.movie_screenings.include?(@screening)).to be true
+  end
+
+  it 'should add multiple screenings' do
+    @repertoire.add_screenings(screenings: [@screening, @non_overlaping])
+    expect(@repertoire.movie_screenings.include?(@screening)).to be true
+    expect(@repertoire.movie_screenings.include?(@non_overlaping)).to be true
   end
 
   it 'should delete existing screening' do

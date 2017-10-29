@@ -2,6 +2,7 @@ require_relative './UI/console_user_interface.rb'
 require_relative './UI/helpers/movie_creation_helper.rb'
 
 require_relative './movie/movie_description.rb'
+require_relative './movie/movie_screening.rb'
 require_relative './movie/movie_ratings.rb'
 require_relative './movie/movie_genre.rb'
 require_relative './movie/movie_crew.rb'
@@ -24,6 +25,7 @@ main_menu = [
   'List screenings',
   'Add movie',
   'Add screening',
+  'Add cinema screen',
   'Exit program'
 ]
 @cinema = Cinema.new
@@ -42,7 +44,24 @@ end
 
 def process_restore_session
   deserialized_objects = @session_manager.restore_session
-  @cinema.repertoire.add_movies(movies: deserialized_objects['Movie'].values)
+
+  if deserialized_objects['CinemaScreen']
+    @cinema.add_screens(
+      deserialized_objects['CinemaScreen'].values
+    )
+  end
+
+  if deserialized_objects['Movie']
+    @cinema.repertoire.add_movies(
+      movies: deserialized_objects['Movie'].values
+    )
+  end
+
+  if deserialized_objects['MovieScreening']
+    @cinema.repertoire.add_screenings(
+      screenings: deserialized_objects['MovieScreening'].values
+    )
+  end
 end
 
 # program start
@@ -57,14 +76,16 @@ while on
   input = UI.receive_input
   case input
   when '1'
-    UI.list(@cinema.repertoire.movies)
+    UI.list(@cinema.repertoire.movies, true)
   when '2'
-    UI.list(@cinema.repertoire.movie_screenings)
+    UI.list(@cinema.repertoire.movie_screenings, true)
   when '3'
     @cinema.repertoire.add_movie(movie: create_movie)
   when '4'
-    puts 'lol'
+    @cinema.repertoire.add_screening(new_screening: create_movie_screening)
   when '5'
+    @cinema.add_screen(create_cinema_screen)
+  when '6'
     process_exit
   end
 end
