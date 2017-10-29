@@ -50,6 +50,6 @@ class SessionManager
   def parse_storage
     @serial = JSON.parse(@storage.read_all)
   rescue JSON::ParserError
-    puts 'bad file format'
+    raise 'BAD_JSON_FORMAT'
   end
 end

@@ -30,7 +30,7 @@ main_menu = [
 @cinema = Cinema.new
 @session_manager = SessionManager.new(
   @cinema,
-  FileStorage.new('../data/test.json')
+  FileStorage.new('../data/session.json')
 )
 
 def process_exit
