@@ -1,10 +1,17 @@
-require 'date'
+require_relative '../helpers/date_time_helper.rb'
+
 # User interface class for Cinema
 class ConsoleUserInterface
-  def list(things, seperate = false)
+  def list(things)
     things.each.with_index do |thing, index|
       puts "#{index + 1}. #{thing}"
-      puts '==================================' if seperate
+    end
+  end
+
+  def list_with_seperation(things)
+    things.each.with_index do |thing, index|
+      puts "#{index + 1}. #{thing}"
+      puts '=================================='
     end
   end
 
@@ -22,8 +29,8 @@ class ConsoleUserInterface
 
   def receive_multi_input
     multi_input = []
-    until (a = receive_input) == ''
-      multi_input.push(a)
+    until (input = receive_input) == ''
+      multi_input.push(input)
     end
     multi_input.uniq
   end
@@ -36,8 +43,8 @@ class ConsoleUserInterface
   end
 
   def receive_date_input(format = '%Y-%m-%d')
-    date = receive_input
-    return valid_date?(date, format) if valid_date?(date, format)
+    return DateTimeHelper.valid_date?(receive_input, format)
+  rescue
     send_message('Please enter date in YYYY-MM-DD format:')
     receive_date_input(format)
   end
@@ -49,7 +56,7 @@ class ConsoleUserInterface
   end
 
   def receive_list_item(array)
-    list(array)
+    list_with_seperation(array)
     return retreive_item(array)
   rescue ArgumentError => error
     send_message(error.message)
@@ -67,11 +74,5 @@ class ConsoleUserInterface
     raise ArgumentError, 'Number is not in range' unless
       (0..array.count).cover?(input)
     array.take(input + 1).last
-  end
-
-  def valid_date?(str, format = '%Y-%m-%d')
-    Date.strptime(str, format).to_time + Time.now.utc_offset
-  rescue
-    false
   end
 end

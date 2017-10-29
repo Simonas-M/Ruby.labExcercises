@@ -3,7 +3,7 @@ require_relative '../../src/movie/movie_crew.rb'
 require_relative '../../src/movie/movie_info.rb'
 
 RSpec.describe 'Serializer' do
-  it 'should seralize an object array' do
+  before(:each) do
     @movie_crew = MovieCrew.new(
       directors: ['Uncle'],
       writers: ['Bob'],
@@ -15,6 +15,23 @@ RSpec.describe 'Serializer' do
       release_date: Time.new('2017-01-01'),
       crew: @movie_crew
     )
-    Serializer.serialize_all([@movie_crew, @movie_info])
+  end
+
+  it 'should seralize an object' do
+    result = Serializer.serialize(@movie_crew)
+    expected_result = {
+      directors: ['Uncle'],
+      writers: ['Bob'],
+      actors: %w[Rick Morty]
+    }
+    expect(result).to eq expected_result
+  end
+
+  it 'should serialize an object array' do
+    result = Serializer.serialize_all([@movie_crew, @movie_info])
+    expect(result).to eq %({"MovieCrew":{"#{@movie_crew.object_id}":{"directors\
+":["Uncle"],"writers":["Bob"],"actors":["Rick","Morty"]}},"MovieInfo":{\
+"#{@movie_info.object_id}":{"rating":"PG13","duration":120000,"release_date":\
+"2016-12-31","crew_id":"#{@movie_crew.object_id}"}}})
   end
 end

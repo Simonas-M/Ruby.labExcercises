@@ -1,3 +1,5 @@
+require_relative '../../helpers/date_time_helper.rb'
+
 # returns a Movie object
 def create_movie
   description = create_movie_description
@@ -49,12 +51,8 @@ def create_movie_screening
   date = UI.receive_date_input
   UI.send_message 'Enter screening time:'
   time = UI.receive_time_input
-  date_time = format_date(date, time)
+  date_time = DateTimeHelper.add_date_and_time(date, time)
   MovieScreening.new(movie: movie, cinema_screen: screen, time: date_time)
-end
-
-def format_date(date, time)
-  date.to_time.utc + (time[:hour] * 3_600 + time[:minute] * 60)
 end
 
 def create_cinema_screen
