@@ -66,9 +66,12 @@ at_count":2}},"MovieDescription":{"33525660":{"title":"test","genre":"ACTION","\
 summary":"summary"}}})
     allow(@storage).to receive(:read_all).and_return(serialized_schema)
     @manager.restore_session
-    expect(@cinema.repertoire.movies.count).to be 1
-    expect(@cinema.repertoire.movie_screenings.count).to be 1
-    expect(@cinema.screens.count).to be 1
+    movie = @cinema.repertoire.movies.first
+    expect(movie.info.rating).to eq :PG13
+    expect(movie.description.title).to eq 'test'
+    screening = @cinema.repertoire.movie_screenings.first
+    expect(screening.movie).to eq movie
+    expect(@cinema.screens.first.name).to eq 'screen`'
   end
 
   it 'should raise if file format is incorrect' do
