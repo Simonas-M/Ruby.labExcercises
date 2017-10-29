@@ -1,9 +1,7 @@
 # returns a Movie object
 def create_movie
   description = create_movie_description
-  puts description.to_json
   info = create_movie_info
-  puts info.to_json
   Movie.new(info, description)
 end
 

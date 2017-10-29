@@ -1,5 +1,6 @@
 require_relative 'movie_info'
 require_relative 'movie_description.rb'
+require_relative '../helpers/cinema_representation_helper.rb'
 
 # class for storing information about cinema movie
 class Movie
@@ -30,6 +31,10 @@ class Movie
       info_id: info.object_id.to_s,
       description_id: description.object_id.to_s
     }
+  end
+
+  def to_s
+    CinemaRepresentationHelper.stringify_movie(info, description)
   end
 
   def self.hash_create(serial, hash)

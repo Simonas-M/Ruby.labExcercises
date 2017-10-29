@@ -1,11 +1,12 @@
 # class used for session storage into files
 class FileStorage
   def initialize(file_path)
-    open(file_path)
+    @file_path = file_path
+    open
   end
 
   def write(string)
-    @storage.truncate(0)
+    clear_file
     @storage.puts(string.to_s)
   end
 
@@ -14,10 +15,15 @@ class FileStorage
     @storage.read
   end
 
-  def open(file_path)
-    @storage = File.open(file_path, 'r+')
+  def open
+    @storage = File.open(@file_path, 'r+')
   rescue Errno::ENOENT
-    @storage = File.new(file_path, 'r+')
+    @storage = File.new(@file_path, 'w+')
+  end
+
+  def clear_file
+    self.end
+    @storage = File.open(@file_path, 'w')
   end
 
   def end

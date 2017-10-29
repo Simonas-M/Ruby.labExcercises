@@ -28,6 +28,10 @@ class MovieScreening
     seat_count <= available_seat_count
   end
 
+  def to_s
+    CinemaRepresentationHelper.stringify_screening(self)
+  end
+
   def to_hash
     {
       movie_id: movie.object_id.to_s,
