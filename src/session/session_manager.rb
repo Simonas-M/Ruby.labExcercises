@@ -6,6 +6,7 @@ require 'json'
 class SessionManager
   def initialize(storage)
     @storage = storage
+    @json = {}
   end
 
   def save_session(objects)
@@ -17,7 +18,6 @@ class SessionManager
     Deserializer.deserialize_sequence(@json, %w[CinemaScreen MovieDescription
                                                 MovieCrew MovieInfo Movie
                                                 MovieScreening])
-    @json
   end
 
   private
