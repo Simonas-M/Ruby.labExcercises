@@ -15,9 +15,12 @@ class Serializer
     serialized.to_json
   end
 
+  def self.create_branch(serial, object_class)
+    serial[object_class] = {} unless serial[object_class]
+  end
+
   def self.retreive_branch(serial, object_class)
-    object_branch = serial[object_class]
-    serial[object_class] = {} unless object_branch
+    create_branch(serial, object_class)
     serial[object_class]
   end
 end
