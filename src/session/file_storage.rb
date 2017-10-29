@@ -2,7 +2,7 @@
 class FileStorage
   def initialize(file_path)
     @file_path = file_path
-    open
+    @storage = open('r+')
   end
 
   def write(string)
@@ -15,15 +15,15 @@ class FileStorage
     @storage.read
   end
 
-  def open
-    @storage = File.open(@file_path, 'r+')
+  def open(mode)
+    File.open(@file_path, mode)
   rescue Errno::ENOENT
-    @storage = File.new(@file_path, 'w+')
+    open('w+')
   end
 
   def clear_file
     self.end
-    @storage = File.open(@file_path, 'w')
+    @storage = open('w')
   end
 
   def end
