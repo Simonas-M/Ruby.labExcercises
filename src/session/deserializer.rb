@@ -1,10 +1,11 @@
 # class for Cinema objects deserialization
 class Deserializer
   def self.deserialize(serial, object_class)
-    return if serial[object_class].nil?
-    serial[object_class].each do |key, value|
-      serial[object_class][key] = Object.const_get(object_class)
-                                        .hash_create(serial, value)
+    object_branch = serial[object_class]
+    return unless object_branch
+    object_branch.each do |key, value|
+      object_branch[key] = Object.const_get(object_class)
+                                 .hash_create(serial, value)
     end
   end
 
@@ -12,5 +13,6 @@ class Deserializer
     sequence.each do |object_class|
       serial[object_class] = deserialize(serial, object_class)
     end
+    serial
   end
 end
