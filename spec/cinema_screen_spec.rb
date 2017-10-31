@@ -48,4 +48,8 @@ RSpec.describe 'CinemaScreen' do
     expect(from_hash.name).to eq 'Pink Panther'
     expect(from_hash.seat_count).to eq 39
   end
+
+  it 'should stringify' do
+    expect(@cinema_screen.to_s).to eq 'test'
+  end
 end

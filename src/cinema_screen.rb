@@ -11,6 +11,10 @@ class CinemaScreen
       seat_count.eql?(other.seat_count)
   end
 
+  def to_s
+    name
+  end
+
   def to_hash
     {
       name: name,
