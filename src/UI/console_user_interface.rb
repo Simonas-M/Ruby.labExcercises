@@ -32,7 +32,6 @@ class ConsoleUserInterface
     until (input = receive_input) == ''
       multi_input.push(input)
     end
-    multi_input.uniq
   end
 
   def receive_integer_input(*range)
