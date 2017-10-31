@@ -80,9 +80,9 @@ RSpec.describe 'MovieScreening' do
     }
     from_hash = MovieScreening
                 .hash_create(serialized_hash, serialized_hash['MovieScreening'])
-    expect(from_hash.movie).to eq @movie
-    expect(from_hash.cinema_screen).to eq @cinema_screen
-    expect(from_hash.time).to eq Time.at(1_509_112_692).utc
+    expect(from_hash.movie).to equal @movie
+    expect(from_hash.cinema_screen).to equal @cinema_screen
+    expect(from_hash.time).to eql Time.at(1_509_112_692).utc
     expect(from_hash.available_seat_count).to eq 40
   end
 
