@@ -22,7 +22,7 @@ RSpec.describe 'MovieScreening' do
   it 'should decrease and increase available seat count' do
     @movie_screening.reserve('3')
     expect(@movie_screening.available_seat_count).to eq(37)
-    expect{ @movie_screening.free('2') }
+    expect { @movie_screening.free('2') }
       .to change { @movie_screening.available_seat_count }.from(37).to(39)
   end
 
