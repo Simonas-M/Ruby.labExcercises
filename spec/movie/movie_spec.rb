@@ -14,7 +14,7 @@ RSpec.describe 'Movie' do
     @movie_info = MovieInfo.new(
       rating: :PG,
       duration: 1000,
-      release_date: Time.now,
+      release_date: Time.at(1_531_411_120),
       crew: movie_crew
     )
     @movie_description = MovieDescription.new(
@@ -76,6 +76,6 @@ RSpec.describe 'Movie' do
   it 'should stringify' do
     movie = Movie.new(@movie_info, @movie_description)
     expect(movie.to_s)
-      .to eq "\nTitle (2017)\nPG | 00h 16min | ACTION | 2017-10-29\nsummary"
+      .to eq "\nTitle (2018)\nPG | 00h 16min | ACTION | 2018-07-12\nsummary"
   end
 end

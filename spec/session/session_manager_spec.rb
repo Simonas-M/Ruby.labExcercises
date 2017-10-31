@@ -82,7 +82,7 @@ end
 
 # fake storage stub
 class FakeStorage
-  def write(lol); end
+  def write; end
 
   def read_all; end
 end
