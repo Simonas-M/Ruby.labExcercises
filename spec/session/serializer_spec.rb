@@ -29,9 +29,8 @@ RSpec.describe 'Serializer' do
 
   it 'should serialize an object array' do
     result = Serializer.serialize_all([@movie_crew, @movie_info])
-    expect(result).to eq %({"MovieCrew":{"#{@movie_crew.object_id}":{"directors\
-":["Uncle"],"writers":["Bob"],"actors":["Rick","Morty"]}},"MovieInfo":{\
-"#{@movie_info.object_id}":{"rating":"PG13","duration":120000,"release_date":\
-"2016-12-31","crew_id":"#{@movie_crew.object_id}"}}})
+    expect(result).to eq %({"MovieCrew":{"1":{"directors":["Uncle"],"writers":[\
+"Bob"],"actors":["Rick","Morty"]}},"MovieInfo":{"2":{"rating":"PG13","duration"\
+:120000,"release_date":"2016-12-31","crew_id":"1"}}})
   end
 end
