@@ -5,7 +5,10 @@ module CustomStringMatchers
   extend RSpec::Matchers::DSL
   matcher :be_capitalized do
     match do |string|
-      /([A-Z][\w-]*(\s+[A-Z][\w-]*)*)/.match(string)
+      matches = []
+      matches.concat(/^\w/.match(string).to_a)
+      matches.concat(/ \w/.match(string).to_a)
+      matches.all? { |letter| letter == letter.upcase }
     end
 
     failure_message do |string|
