@@ -1,7 +1,10 @@
 require_relative '../../src/movie/movie_description.rb'
 require_relative '../../src/movie/movie_genre.rb'
 
+require_relative '../custom_matchers/custom_string_matchers.rb'
+
 RSpec.describe 'MovieDescription' do
+  include CustomStringMatchers
   before(:each) do
     @description_args = {
       title: 'Stranger Things',
@@ -27,6 +30,11 @@ RSpec.describe 'MovieDescription' do
     }
     expect { MovieDescription.new(description_args) }
       .to raise_error('no such genre')
+  end
+
+  it 'should capitalize every word in the title' do
+    movie_description = MovieDescription.new(@description_args)
+    expect(movie_description.title).to be_capitalized
   end
 
   it 'should serialize to hash' do

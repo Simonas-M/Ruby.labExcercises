@@ -42,7 +42,7 @@ RSpec.describe 'Movie' do
 
   it 'should initialize with MovieInfo and MovieDescription' do
     movie = Movie.new(@movie_info, @movie_description)
-    expect(movie.title).to eq 'title'
+    expect(movie.title).to eq 'Title'
     expect(movie.genre).to eq :ACTION
     expect(movie.duration).to eq 1000
   end

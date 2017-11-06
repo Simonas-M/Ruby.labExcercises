@@ -7,7 +7,7 @@ class MovieDescription
     raise 'no such genre' unless
     MovieGenres.include?(genre)
 
-    @title = title
+    @title = title.split(/ /).map(&:capitalize).join(' ')
     @genre = genre.to_sym.upcase
     @summary = summary
   end

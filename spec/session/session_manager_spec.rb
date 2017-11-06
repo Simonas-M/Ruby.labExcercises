@@ -14,7 +14,7 @@ RSpec.describe 'SessionManager' do
       CinemaScreen.new(name: 'test', seat_count: 10),
     ]
     @movies = [
-      MovieHelper.create(title: 'test_movie'),
+      MovieHelper.create(title: 'test movie'),
     ]
     @screenings = [
       MovieScreening.new(movie: @movies[0],
@@ -42,7 +42,7 @@ RSpec.describe 'SessionManager' do
     @manager.restore_session
     movie = @cinema.repertoire.movies.first
     expect(movie.info.rating).to eq :PG
-    expect(movie.description.title).to eq 'test_movie'
+    expect(movie.description.title).to eq 'Test Movie'
     screening = @cinema.repertoire.movie_screenings.first
     expect(screening.movie).to eq movie
     expect(@cinema.screens.first.name).to eq 'test'
