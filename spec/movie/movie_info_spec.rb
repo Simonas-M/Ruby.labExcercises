@@ -17,9 +17,11 @@ RSpec.describe 'MovieInfo' do
     }
     @movie_info = MovieInfo.new(@info_args)
   end
+
   it 'should initialize' do
     expect(MovieInfo.new(@info_args)).to be
   end
+
   it 'should raise error if wrong parameters are passed' do
     # no parameters
     expect { MovieInfo.new }.to raise_error(ArgumentError)

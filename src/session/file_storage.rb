@@ -7,7 +7,7 @@ class FileStorage
 
   def write(string)
     clear_file
-    @storage.puts(string.to_s)
+    @storage.print(string.to_s)
   end
 
   def read_all
