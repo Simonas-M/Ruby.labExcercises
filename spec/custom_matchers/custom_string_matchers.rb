@@ -12,13 +12,11 @@ module CustomStringMatchers
     end
 
     failure_message do |string|
-      %(Expected string #{string} to have every word capitalized:\n
-      #{string})
+      %(Expected string #{string} to have every word capitalized)
     end
 
     failure_message_when_negated do |string|
-      %(Expected string #{string} not to have every word capitalized:\n
-      #{string})
+      %(Expected string #{string} not to have every word capitalized)
     end
   end
 end

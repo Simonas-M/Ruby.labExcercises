@@ -12,7 +12,8 @@ RSpec.describe 'MovieGenres' do
   end
   it 'should be frozen' do
     before = MovieGenres::GENRES
-    expect { MovieGenres::GENRES = 'not genres'.freeze }.to raise_error
+    expect { MovieGenres::GENRES = 'not genres'.freeze }
+      .to raise_error(RuntimeError)
     expect(MovieGenres::GENRES).to eq(before)
   end
 end
