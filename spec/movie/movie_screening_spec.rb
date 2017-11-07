@@ -1,9 +1,11 @@
+require_relative '../custom_matchers/movie_screening_matchers.rb'
 require_relative '../../src/movie/movie_screening.rb'
 require_relative '../../src/cinema_screen.rb'
 require_relative '../helpers/movie_helper.rb'
 require 'time'
 
 RSpec.describe 'MovieScreening' do
+  include MovieScreeningMatchers
   before(:each) do
     @time = Time.at(151_521_512)
     @movie = MovieHelper.create
@@ -17,6 +19,11 @@ RSpec.describe 'MovieScreening' do
 
   it 'should convert time to utc' do
     expect(@movie_screening.time.utc?).to eq true
+  end
+
+  it 'should reserve seats' do
+    @movie_screening.reserve(5)
+    expect(@movie_screening).to have_reserved_seats(5)
   end
 
   it 'should decrease and increase available seat count' do

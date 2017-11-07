@@ -34,7 +34,6 @@ Reikalavimai:
 * nusipirkti bilietą:
     1. pasirinkti filmo bilietą
         * pasirinkti kino filmą
-        * pasirinkti kino teatro vietą
         * pasirinkti kino salę
         * pasirinkti datą
         * parininkti seansą
