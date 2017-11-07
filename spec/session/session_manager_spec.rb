@@ -11,10 +11,10 @@ RSpec.describe 'SessionManager' do
   before(:each) do
     @cinema = Cinema.new
     @screens = [
-      CinemaScreen.new(name: 'test', seat_count: 10),
+      CinemaScreen.new(name: 'test', seat_count: 10)
     ]
     @movies = [
-      MovieHelper.create(title: 'test movie'),
+      MovieHelper.create(title: 'test movie')
     ]
     @screenings = [
       MovieScreening.new(movie: @movies[0],
