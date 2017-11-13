@@ -126,6 +126,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   abstract_type (~> 0.0.7)

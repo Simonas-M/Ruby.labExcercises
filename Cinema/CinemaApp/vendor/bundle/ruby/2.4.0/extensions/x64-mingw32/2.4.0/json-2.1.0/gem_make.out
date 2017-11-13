@@ -1,0 +1,13 @@
+current directory: C:/Users/Simonas/VU_Software_Engineering/5.Penktas semestras/Agile_development_with_Ruby/Cinema/CinemaApp/vendor/bundle/ruby/2.4.0/gems/json-2.1.0/ext/json
+C:/Ruby24-x64/bin/ruby.exe -r ./siteconf20171109-10704-e8v9gx.rb extconf.rb
+creating Makefile
+
+current directory: C:/Users/Simonas/VU_Software_Engineering/5.Penktas semestras/Agile_development_with_Ruby/Cinema/CinemaApp/vendor/bundle/ruby/2.4.0/gems/json-2.1.0/ext/json
+make "DESTDIR=" clean
+
+current directory: C:/Users/Simonas/VU_Software_Engineering/5.Penktas semestras/Agile_development_with_Ruby/Cinema/CinemaApp/vendor/bundle/ruby/2.4.0/gems/json-2.1.0/ext/json
+make "DESTDIR="
+make: Nothing to be done for 'all'.
+
+current directory: C:/Users/Simonas/VU_Software_Engineering/5.Penktas semestras/Agile_development_with_Ruby/Cinema/CinemaApp/vendor/bundle/ruby/2.4.0/gems/json-2.1.0/ext/json
+make "DESTDIR=" install
