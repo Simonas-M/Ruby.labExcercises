@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec/expectations'
 
 # Custom RSpec matchers for strings
@@ -20,7 +22,7 @@ reserved seats, got: #{reserved_seats(screening)})
     end
   end
 
-  def reserved_seats(screening)
+  def self.reserved_seats(screening)
     all = screening.screen.seat_count
     available = screening.available_seat_count
     all - available

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# class Crew model
 class Crew < ApplicationRecord
   belongs_to :info
   has_many :directors

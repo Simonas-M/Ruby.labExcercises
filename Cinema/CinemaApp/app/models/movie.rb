@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# movie model
 class Movie < ApplicationRecord
   has_many :screenings
   has_many :repertoire_movies

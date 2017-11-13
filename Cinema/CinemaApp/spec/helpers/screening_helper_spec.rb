@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ScreeningHelper, type: :helper do
@@ -50,6 +52,6 @@ RSpec.describe ScreeningHelper, type: :helper do
     allow(new_scr).to receive(:[]).with(:screen_id).and_return 1
     allow(DatetimeHelper).to receive(:overlaps?).and_call_original
     ScreeningHelper.overlaps?(existing, new_scr)
-    expect(DatetimeHelper).to receive(:overlaps?)
+    expect_any_instance_of(DatetimeHelper).to receive(:overlaps?)
   end
 end

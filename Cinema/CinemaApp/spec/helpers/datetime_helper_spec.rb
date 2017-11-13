@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 # Specs in this file have access to a helper object that includes
@@ -17,7 +19,7 @@ RSpec.describe DatetimeHelper, type: :helper do
   end
 
   it 'should raise if date is not valid' do
-    expect{ DatetimeHelper.valid_date?('invalid') }
+    expect { DatetimeHelper.valid_date?('invalid') }
       .to raise_error(ArgumentError, 'invalid date')
   end
 

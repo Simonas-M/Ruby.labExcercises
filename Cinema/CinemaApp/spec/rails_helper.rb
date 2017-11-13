@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require_relative './spec_helper.rb'
 ENV['RAILS_ENV'] ||= 'test'

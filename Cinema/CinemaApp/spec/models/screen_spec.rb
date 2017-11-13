@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../rails_helper.rb'
 
 RSpec.describe Screen, type: :model do

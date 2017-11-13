@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # class for creating perfect string representations for cinema objects
 class RepresentationHelper
   def self.stringify_movie(info, description)

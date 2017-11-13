@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # class for movie screening management
 class Repertoire < ApplicationRecord
   belongs_to :cinema
@@ -11,11 +13,12 @@ class Repertoire < ApplicationRecord
 
   # methods for movie management
   def add_movie(movie:)
+    movie_id = movie.id
     raise 'cannot add existing movie' if
-      movies.any? { |mov| mov.id == movie.id }
+      movies.any? { |mov| mov.id == movie_id }
     RepertoireMovie.create(
       repertoire_id: id,
-      movie_id: movie.id
+      movie_id: movie_id
     )
   end
 
@@ -34,11 +37,7 @@ class Repertoire < ApplicationRecord
   # right now this can add undefined onjects and mess things up
   def add_screening(new_screening:)
     raise 'cannot add overlaping screening' if overlaps?(new_screening)
-    Screening.create(
-      movie_id: new_screening[:movie_id],
-      screen_id: new_screening[:screen_id],
-      time: new_screening[:time]
-    )
+    Screening.create(new_screening)
   end
 
   def add_screenings(screenings:)

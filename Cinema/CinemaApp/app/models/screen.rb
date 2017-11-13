@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # class for movie screen
 class Screen < ApplicationRecord
   belongs_to :cinema

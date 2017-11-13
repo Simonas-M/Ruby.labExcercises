@@ -1,4 +1,6 @@
-# Class for central cinema object
+# frozen_string_literal: true
+
+# Class for central cinema object model
 class Cinema < ApplicationRecord
   has_many :screens
   has_one :repertoire
@@ -13,10 +15,7 @@ class Cinema < ApplicationRecord
 
   def add_screens(cinema_screens)
     cinema_screens.each do |screen_hash|
-      add_screen(
-        title: screen_hash[:title],
-        seat_count: screen_hash[:seat_count]
-      )
+      add_screen(screen_hash)
     end
   end
 end

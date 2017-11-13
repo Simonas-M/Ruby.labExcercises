@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # movie session class for Movie repertoire
 class Screening < ApplicationRecord
   belongs_to :movie
@@ -18,7 +20,7 @@ class Screening < ApplicationRecord
   def free(seat_count)
     seat_count = Integer(seat_count)
     raise "cannon free #{seat_count} seats" unless
-    seat_count <= (screen.seat_count - self.available_seat_count)
+    seat_count <= (screen.seat_count - available_seat_count)
     self.available_seat_count += seat_count
   end
 
