@@ -40,15 +40,13 @@ RSpec.describe Repertoire, type: :model do
 
   it 'should raise when trying to delete non existing screening' do
     @repertoire.add_screening(new_screening: @screening)
-    expect { @repertoire.del_screening(screening_id: 9) }
+    expect { @repertoire.del_screening_by_id(9) }
       .to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'should delete existing screening' do
     @repertoire.add_screening(new_screening: @screening)
-    @repertoire.del_screening(
-      screening_id: Screening.find_by(@screening).id
-    )
+    @repertoire.del_screening_by_id(Screening.find_by(@screening).id)
     expect(Screening.exists?(@screening)).to be false
   end
 

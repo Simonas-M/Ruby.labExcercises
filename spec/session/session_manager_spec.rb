@@ -53,10 +53,3 @@ RSpec.describe 'SessionManager' do
     expect { @manager.restore_session }.to raise_error('BAD_JSON_FORMAT')
   end
 end
-
-# fake storage stub
-class FakeStorage
-  def write; end
-
-  def read_all; end
-end

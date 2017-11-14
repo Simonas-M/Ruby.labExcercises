@@ -44,8 +44,9 @@ class Repertoire < ApplicationRecord
     screenings.each { |screening| add_screening(new_screening: screening) }
   end
 
-  def del_screening(screening_id:)
-    Screening.find(screening_id).destroy
+  def del_screening_by_id(screening_id)
+    screening = Screening.find(screening_id)
+    screening.destroy if screenings.include?(screening)
   end
 
   private
