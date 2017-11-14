@@ -6,8 +6,6 @@ class ScreeningHelper
     existing_time_range = extract_exsisting_time_range(existing_screening)
     new_time_range = extract_new_time_range(new_screening)
 
-    p existing_time_range
-    p new_time_range
     DatetimeHelper.overlaps?(existing_time_range, new_time_range) &&
       existing_screening.screen.id == new_screening[:screen_id]
   end

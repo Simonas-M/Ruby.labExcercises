@@ -7,7 +7,7 @@ module ScreeningMatchers
   extend RSpec::Matchers::DSL
   matcher :have_reserved_seats do |seats|
     match do |screening|
-      reserved = reserved_seats(screening)
+      reserved = ScreeningMatchers.reserved_seats(screening)
       reserved == seats
     end
 
