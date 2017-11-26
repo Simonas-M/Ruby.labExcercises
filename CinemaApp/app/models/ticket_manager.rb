@@ -1,56 +1,50 @@
 # frozen_string_literal: true
 
+require_relative '../app_helpers/ticket_price_calculator.rb'
+
 # Class for managing bought tickets
 class TicketManager < ApplicationRecord
   belongs_to :cinema
   has_many :tickets
 
-  BASE_PRICE = 3
-  BASE_DISCOUNT = 0.087
-  BASE_DISCOUNT_START = 3
-
   # def reserve_ticket(client, ticket)
 
   # end
 
-  def get_clients_tickets(client)
-    tickets.where { |ticket| ticket.client == client }
+  def client_ellegible_for_free_ticket?(client)
+    ticket_count = tickets.where(client: client).count
+    TicketPriceCalculator.free_ticket_elllegible? ticket_count
+  end
+
+  def adjust_price_for_client(client:, ticket_id:)
+    ticket = tickets.find_by!(id: ticket_id)
+    new_price = if client_ellegible_for_free_ticket?(client)
+                  0
+                else
+                  TicketPriceCalculator.calculate_ticket_price(ticket.screening)
+                end
+    ticket.change_price(new_price)
   end
 
   def create_ticket(screening:, seat_no:)
-    Ticket.create(
-      price: 123,
+    Ticket.create!(
       seat_no: seat_no,
-      screening_id: screening,
-      ticket_manager_id: id
+      screening: screening,
+      ticket_manager: self
     )
   end
 
   def assign_ticket(ticket:, client:)
-    raise 'cannon reassign ticket' if ticket.client
-    ticket.client = client
-    ticket.save
+    begin
+      tm_ticket = tickets.find_by!(id: ticket.id, client: nil)
+    rescue
+      raise 'cannot reassign ticket'
+    end
+    tm_ticket.assign_to(client: client)
   end
 
   def return_ticket(ticket)
-    ticket.client = nil
-    ticket.save
-  end
-
-  def calculate_ticket_price(movie_screening)
-    movie_info = movie_screening.movie.info
-    release_date = movie_info.release_date
-    duration = movie_info.duration
-    (BASE_PRICE * (Float(duration) / 3600) -
-      calculate_yearly_discount(release_date)).round(2)
-  end
-
-  def calculate_yearly_discount(release_date)
-    current_year = Time.now.utc.year
-    if release_date.year < current_year - BASE_DISCOUNT_START
-      BASE_DISCOUNT * (Time.now.utc.year - release_date.year)
-    else
-      0
-    end
+    tm_ticket = tickets.find_by!(id: ticket.id)
+    tm_ticket.unassign
   end
 end
