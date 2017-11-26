@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+inception_ticket1:
   price: 9.99
   seat_no: 1
-  screening: one
+  screening: inception_screening
+  ticket_manager_id: manager
+  client:
 
-two:
-  price: 9.99
-  seat_no: 1
-  screening: two
+inception_ticket2:
+  price: 2
+  seat_no: 2
+  screening: inception_screening
+  ticket_manager_id: manager
+  client:

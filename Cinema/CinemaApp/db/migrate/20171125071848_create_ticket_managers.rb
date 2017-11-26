@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateRepertoires < ActiveRecord::Migration[5.1]
+class CreateTicketManagers < ActiveRecord::Migration[5.1]
   def change
-    create_table :repertoires do |t|
+    create_table :ticket_managers do |t|
       t.references :cinema, foreign_key: true
 
       t.timestamps

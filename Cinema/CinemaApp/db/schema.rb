@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171110103935) do
+ActiveRecord::Schema.define(version: 20171125075324) do
 
   create_table "actors", force: :cascade do |t|
     t.string "name", limit: 30
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 20171110103935) do
   end
 
   create_table "cinemas", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "surname"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -117,13 +125,24 @@ ActiveRecord::Schema.define(version: 20171110103935) do
     t.index ["cinema_id"], name: "index_screens_on_cinema_id"
   end
 
+  create_table "ticket_managers", force: :cascade do |t|
+    t.integer "cinema_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cinema_id"], name: "index_ticket_managers_on_cinema_id"
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.decimal "price"
     t.integer "seat_no"
     t.integer "screening_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "ticket_manager_id"
+    t.integer "client_id"
+    t.index ["client_id"], name: "index_tickets_on_client_id"
     t.index ["screening_id"], name: "index_tickets_on_screening_id"
+    t.index ["ticket_manager_id"], name: "index_tickets_on_ticket_manager_id"
   end
 
   create_table "writers", force: :cascade do |t|

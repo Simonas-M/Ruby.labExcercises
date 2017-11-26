@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ScreeningHelper, type: :helper do
@@ -20,6 +22,5 @@ RSpec.describe ScreeningHelper, type: :helper do
     allow(screening).to receive(:time).and_return Time.now
 
     range = ScreeningHelper.extract_new_time_range(screening)
-    
   end
 end

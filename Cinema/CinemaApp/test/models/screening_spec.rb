@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../custom_matchers/screening_matchers.rb'
 require 'rails_helper'
 
