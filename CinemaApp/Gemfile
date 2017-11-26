@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'rbconfig'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -59,7 +59,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'execjs', '~> 2.7'
 
 # Added at 2017-11-08 21:31:05 +0200 by simonas-noteboo\simonas:
-gem 'wdm', '~> 0.1.1'
+gem 'wdm', '~> 0.1.1'  if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
 
 gem 'simplecov'
 
