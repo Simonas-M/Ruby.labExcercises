@@ -20,4 +20,8 @@ class DatetimeHelper
     (first_range.first - second_range.end) *
       (second_range.first - first_range.end) >= 0
   end
+
+  def self.current_year
+    Time.now.utc.year
+  end
 end

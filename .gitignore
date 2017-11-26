@@ -21,3 +21,5 @@
 .byebug_history
 /CinemaApp/Gemfile.lock
 /CinemaApp/vendor
+CinemaApp/db/test.sqlite3
+CinemaApp/log/test.log
