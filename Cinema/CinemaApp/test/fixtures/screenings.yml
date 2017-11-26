@@ -1,7 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-screening:
-  time: 2017-11-09 11:39:05
-  available_seat_count: 40
-  movie: inception
-  screen: screen
