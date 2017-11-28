@@ -6,7 +6,7 @@ class Repertoire < ApplicationRecord
   has_many :repertoire_movies
   has_many :movies, through: :repertoire_movies
 
-  def screenings
+  def screenings # TODO neismutantuotas
     Screening.joins(:movie)
              .where(screen_id: Screen.where(cinema_id: cinema.id).ids)
   end
@@ -15,7 +15,7 @@ class Repertoire < ApplicationRecord
   def add_movie(movie:)
     movie_id = movie.id
     raise 'cannot add existing movie' if
-      movies.any? { |mov| mov.id == movie_id }
+      movies.any? { |mov| mov.id.eql?(movie_id) }
     RepertoireMovie.create(
       repertoire_id: id,
       movie_id: movie_id

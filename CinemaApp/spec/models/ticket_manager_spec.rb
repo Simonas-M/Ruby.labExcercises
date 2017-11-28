@@ -42,8 +42,28 @@ RSpec.describe TicketManager, type: :model do
     expect(Ticket.find(ticket.id).client).to be_nil
   end
 
+  it 'should change price according to client' do
+    ticket = tickets(:inception_ticket1)
+    client = clients(:Bobby)
+    @manager.adjust_price_for_client(client: client, ticket_id: ticket.id)
+    changed_ticket = Ticket.find(ticket.id)
+    expect(changed_ticket.price).to eq 0.672e1
+  end
+
+  it 'should change price according to client' do
+    ticket = tickets(:inception_ticket1)
+    client = clients(:Bobby)
+    7.times do
+      Ticket.create(seat_no: ticket.seat_no, screening: ticket.screening,
+                    ticket_manager: @manager, client: client)
+    end
+    @manager.adjust_price_for_client(client: client, ticket_id: ticket.id)
+    changed_ticket = Ticket.find(ticket.id)
+    expect(changed_ticket.price).to eq 0
+  end
+
   it 'should handle every 7th ticket price to be free' do
-    client = clients('Susan')
+    client = clients(:Susan)
     ticket = tickets(:inception_ticket1)
     7.times do
       Ticket.create(seat_no: ticket.seat_no, screening: ticket.screening,
