@@ -27,6 +27,14 @@ RSpec.describe Repertoire, type: :model do
                           time: Time.new(2017, 11, 1, 12) }
   end
 
+  it 'should get only its same cinema screenings' do
+    other_screening = Screening.create!(
+      movie: @movie,
+      screen: Screen.create!(cinema: Cinema.create!)
+    )
+    expect(@repertoire.screenings).not_to include(other_screening)
+  end
+
   it 'should add new screening' do
     @repertoire.add_screening(new_screening: @screening)
     expect(Screening.exists?(@screening)).to be true
@@ -69,6 +77,15 @@ RSpec.describe Repertoire, type: :model do
     expect(Screening.exists?(@non_overlaping)).to be true
   end
 
+  it 'should not destroy screening if repertoire doesnt include it' do
+    screening = Screening.create!(
+      movie: Movie.create,
+      screen: Screen.create
+    )
+    @repertoire.del_screening_by_id(screening.id)
+    expect(Screening.find(screening.id)).to be
+  end
+
   it 'should add a new movie' do
     movie = Movie.create
     @repertoire.add_movie(movie: movie)
@@ -93,6 +110,22 @@ RSpec.describe Repertoire, type: :model do
     @repertoire.add_movie(movie: movie)
     @repertoire.del_movie(movie: movie)
     expect(@repertoire.movies.exists?(movie.id)).to be false
+  end
+
+  it 'should not delete movie if it doesnt exist in repertoire' do
+    movie = Movie.create!
+    expect { @repertoire.del_movie(movie: movie) }
+      .to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  it 'should not delete movie if it doesnt exist in repertoire' do
+    movie = Movie.create!
+    RepertoireMovie.create!(
+      repertoire: Repertoire.create,
+      movie: movie
+    )
+    expect { @repertoire.del_movie(movie: movie) }
+      .to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it 'should raise when trying to delete non existing movie' do
