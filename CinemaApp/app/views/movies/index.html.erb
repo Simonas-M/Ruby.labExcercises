@@ -18,7 +18,6 @@
           </h2>
         </div>
         <span><%= link_to 'Show', movie %></span>
-        <span><%= link_to 'Edit', edit_movie_path(movie) %></span>
         <span><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></span>
       </div>
     <% end %>
@@ -27,4 +26,5 @@
 
 <br>
 
-<%= link_to 'New Movie', new_movie_path %>
+<%= link_to 'New Movie', movies_new_path %>
+<%= link_to 'Back', root_path %>

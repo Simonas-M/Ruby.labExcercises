@@ -1,4 +1,4 @@
-<%= form_for @movie do |form| %>
+<%= form_with(model: @movie, url: "../movies") do |form| %>
   <%= text_field_tag("title", nil, placeholder: "title") %>
   <%= date_field_tag("release_date", nil, placeholder: "release date") %>
   <%= time_field_tag("duration", nil, placeholder: "duration") %>
