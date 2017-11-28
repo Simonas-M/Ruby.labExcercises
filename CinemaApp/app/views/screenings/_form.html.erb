@@ -1,0 +1,10 @@
+<%= form_with(model: @screening, url: '../screenings') do |form| %>
+  <%= datetime_field_tag("time", nil, placeholder: "duration") %>
+  <%= select_tag("movie",
+    options_from_collection_for_select(Movie.all, "id", "title")) %>
+  <%= select_tag("screen",
+    options_from_collection_for_select(Screen.all, "id", "title")) %>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
