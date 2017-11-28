@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<div class="title_wrapper">
+  <h1 itemprop="name" class=""><%= @movie.title %>&nbsp;
+    <span id="title_year">(<%= @movie.info.release_date.year %>)</span>
+  </h1>
+  <div class="subtext">
+    <%= @movie.info.rating.name %>
+    <span class="ghost">|</span>
+    <time>
+      <%= Time.at(@movie.info.duration).utc.strftime('%Hh %Mmin') %>
+    </time>
+    <span class="ghost">|</span>
+    <span><%= @movie.description.genre.name %></span>
+    <span class="ghost">|</span>
+  </div>
+</div>
+<div>
+  <p>
+    <%= @movie.description.summary %>
+  </p> 
+</div>
+
+<%= link_to 'Edit', edit_movie_path(@movie) %> |
+<%= link_to 'Back', movies_path %>

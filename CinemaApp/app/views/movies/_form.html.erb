@@ -1,0 +1,13 @@
+<%= form_for @movie do |form| %>
+  <%= text_field_tag("title", nil, placeholder: "title") %>
+  <%= date_field_tag("release_date", nil, placeholder: "release date") %>
+  <%= time_field_tag("duration", nil, placeholder: "duration") %>
+  <%= text_area_tag("summary", nil, placeholder: "summary") %>
+  <%= select_tag("genre",
+    options_from_collection_for_select(Genre.all, "id", "name")) %>
+  <%= select_tag("rating",
+    options_from_collection_for_select(Rating.all, "id", "name")) %>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

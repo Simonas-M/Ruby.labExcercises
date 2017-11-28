@@ -19,6 +19,18 @@ class Movie < ApplicationRecord
     info.duration
   end
 
+  def release_date
+    info.release_date
+  end
+
+  def rating
+    info.rating.name
+  end
+
+  def summary
+    description.summary
+  end
+
   def to_s
     RepresentationHelper.stringify_movie(info, description)
   end

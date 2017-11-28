@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1 style="margin-bottom: 5%">Movies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @movies.each do |movie| %>
+      <div class="movie_title_bar">
+        <div class="title_wrapper">
+          <h2 itemprop="name" class=""><%= movie.title %>&nbsp;
+            <span id="title_year">(<%= movie.info.release_date.year %>)</span>
+          </h2>
+        </div>
+        <span><%= link_to 'Show', movie %></span>
+        <span><%= link_to 'Edit', edit_movie_path(movie) %></span>
+        <span><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+      </div>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Movie', new_movie_path %>
