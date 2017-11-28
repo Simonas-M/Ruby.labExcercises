@@ -6,7 +6,7 @@ class Repertoire < ApplicationRecord
   has_many :repertoire_movies
   has_many :movies, through: :repertoire_movies
 
-  def screenings
+  def screenings # mutation hell
     Screening.joins(:movie)
              .where(screen_id: Screen.where(cinema_id: cinema.id).ids)
   end
@@ -15,7 +15,7 @@ class Repertoire < ApplicationRecord
   def add_movie(movie:)
     movie_id = movie.id
     raise 'cannot add existing movie' if
-      movies.any? { |mov| mov.id == movie_id }
+      movies.any? { |mov| mov.id.equal?(movie_id) }
     RepertoireMovie.create(
       repertoire_id: id,
       movie_id: movie_id
@@ -28,8 +28,8 @@ class Repertoire < ApplicationRecord
 
   def del_movie(movie:)
     RepertoireMovie.find_by!(
-      movie_id: movie.id,
-      repertoire_id: id
+      movie: movie,
+      repertoire: self
     ).destroy
   end
 
@@ -46,7 +46,7 @@ class Repertoire < ApplicationRecord
 
   def del_screening_by_id(screening_id)
     screening = Screening.find(screening_id)
-    screening.destroy if screenings.include?(screening)
+    screening.destroy if screenings.include?(screening) # mutation right here
   end
 
   private
