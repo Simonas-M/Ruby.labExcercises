@@ -6,19 +6,17 @@ class Repertoire < ApplicationRecord
   has_many :repertoire_movies
   has_many :movies, through: :repertoire_movies
 
-  def screenings # TODO neismutantuotas
-    Screening.joins(:movie)
-             .where(screen_id: Screen.where(cinema_id: cinema.id).ids)
+  def screenings
+    Screening.where(screen: Screen.where(cinema: cinema))
   end
 
   # methods for movie management
   def add_movie(movie:)
-    movie_id = movie.id
     raise 'cannot add existing movie' if
-      movies.any? { |mov| mov.id.eql?(movie_id) }
+      movies.include? movie
     RepertoireMovie.create(
-      repertoire_id: id,
-      movie_id: movie_id
+      repertoire: self,
+      movie: movie
     )
   end
 
@@ -28,8 +26,8 @@ class Repertoire < ApplicationRecord
 
   def del_movie(movie:)
     RepertoireMovie.find_by!(
-      movie_id: movie.id,
-      repertoire_id: id
+      movie: movie,
+      repertoire: self
     ).destroy
   end
 
