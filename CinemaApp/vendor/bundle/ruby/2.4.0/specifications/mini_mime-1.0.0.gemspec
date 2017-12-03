@@ -14,10 +14,10 @@ Gem::Specification.new do |s|
   s.email = ["sam.saffron@gmail.com".freeze]
   s.homepage = "https://github.com/discourse/mini_mime".freeze
   s.licenses = ["MIT".freeze]
-  s.rubygems_version = "2.6.11".freeze
+  s.rubygems_version = "2.6.14".freeze
   s.summary = "A lightweight mime type lookup toy".freeze
 
-  s.installed_by_version = "2.6.11" if s.respond_to? :installed_by_version
+  s.installed_by_version = "2.6.14" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
