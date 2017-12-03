@@ -1,5 +1,0 @@
-include:
-  - ./**/*.rb
-exclude:
-  - spec/**/*
-  - test/**/*

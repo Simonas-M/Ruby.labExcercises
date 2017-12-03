@@ -1,5 +1,25 @@
 .vscode
 .yardoc
-doc
-gems
-coverage
+/CinemaApp/coverage
+
+# Ignore bundler config.
+/CinemaApp/.bundle
+
+# Ignore the default SQLite database.
+/CinemaApp/db/*.sqlite3
+/CinemaApp/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/CinemaApp/log/*
+/CinemaApp/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+/CinemaApp/node_modules
+/CinemaApp/yarn-error.log
+
+.byebug_history
+/CinemaApp/Gemfile.lock
+/CinemaApp/vendor
+CinemaApp/db/test.sqlite3
+CinemaApp/log/test.log

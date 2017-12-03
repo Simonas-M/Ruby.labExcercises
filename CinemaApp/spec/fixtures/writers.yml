@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+inception_writer:
+  name: Christopher
+  surname: Nolan
+  crew: inception_crew
+
+se7en_writer:
+  name: Andrew Kevin
+  surname: Walker
+  crew: se7en_crew

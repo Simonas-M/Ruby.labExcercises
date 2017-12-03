@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+ACTION:
+  name: ACTION
+
+ADVENDURE:
+  name: ADVENTURE
+
+ANIMATION:
+  name: ANIMATION
+
+COMEDY:
+  name: COMEDY
+
+CRIME:
+  name: CRIME
+
+DRAMA:
+  name: DRAMA
+
+FANTASY:
+  name: FANTASY
+
+HISTORICAL:
+  name: HISTORICAL
+
+HORROR:
+  name: HORROR
+
+MYSTERY:
+  name: MYSTERY
+
+MUSICAL:
+  name: MUSICAL
+
+ROMANCE:
+  name: ROMANCE
+
+SCIFI:
+  name: SCIFI
+
+THRILLER:
+  name: TRHILLER
+
+WAR:
+  name: WAR
+
+WESTERN:
+  name: WESTERN

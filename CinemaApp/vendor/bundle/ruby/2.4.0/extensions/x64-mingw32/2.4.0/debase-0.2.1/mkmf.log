@@ -1,0 +1,64 @@
+have_header: checking for vm_core.h... -------------------- no
+
+"x86_64-w64-mingw32-gcc -o conftest.exe -IC:/Ruby24-x64/include/ruby-2.4.0/x64-mingw32 -IC:/Ruby24-x64/include/ruby-2.4.0/ruby/backward -IC:/Ruby24-x64/include/ruby-2.4.0 -I. -D_FORTIFY_SOURCE=2 -D__USE_MINGW_ANSI_STDIO=1 -DFD_SETSIZE=2048 -IC:/msys64/mingw64/lib/libffi-3.2.1/include -D_WIN32_WINNT=0x0501 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -march=x86-64 -mtune=generic -O2 -pipe -IC:/msys64/mingw64/lib/libffi-3.2.1/include conftest.c  -L. -LC:/Ruby24-x64/lib -L. -pipe     -lx64-msvcrt-ruby240  -lgmp -lshell32 -lws2_32 -liphlpapi -limagehlp -lshlwapi  "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <winsock2.h>
+4: #include <windows.h>
+5: int main(int argc, char **argv)
+6: {
+7:   return 0;
+8: }
+/* end */
+
+"x86_64-w64-mingw32-gcc -E -IC:/Ruby24-x64/include/ruby-2.4.0/x64-mingw32 -IC:/Ruby24-x64/include/ruby-2.4.0/ruby/backward -IC:/Ruby24-x64/include/ruby-2.4.0 -I. -D_FORTIFY_SOURCE=2 -D__USE_MINGW_ANSI_STDIO=1 -DFD_SETSIZE=2048 -IC:/msys64/mingw64/lib/libffi-3.2.1/include -D_WIN32_WINNT=0x0501 -D__MINGW_USE_VC2005_COMPAT -D_FILE_OFFSET_BITS=64  -march=x86-64 -mtune=generic -O2 -pipe -IC:/msys64/mingw64/lib/libffi-3.2.1/include  conftest.c -o conftest.i"
+conftest.c:5:10: fatal error: vm_core.h: No such file or directory
+ #include <vm_core.h>
+          ^~~~~~~~~~~
+compilation terminated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <winsock2.h>
+4: #include <windows.h>
+5: #include <vm_core.h>
+/* end */
+
+--------------------
+
+have_header: checking for vm_core.h... -------------------- no
+
+"x86_64-w64-mingw32-gcc -E -IC:/Ruby24-x64/include/ruby-2.4.0/x64-mingw32 -IC:/Ruby24-x64/include/ruby-2.4.0/ruby/backward -IC:/Ruby24-x64/include/ruby-2.4.0 -I. -IC:/Ruby24-x64/include/ruby-2.4.0/ruby-2.4.1-p111 -march=x86-64 -mtune=generic -O2 -pipe -IC:/msys64/mingw64/lib/libffi-3.2.1/include  conftest.c -o conftest.i"
+conftest.c:5:10: fatal error: vm_core.h: No such file or directory
+ #include <vm_core.h>
+          ^~~~~~~~~~~
+compilation terminated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <winsock2.h>
+4: #include <windows.h>
+5: #include <vm_core.h>
+/* end */
+
+--------------------
+
+have_header: checking for vm_core.h... -------------------- no
+
+"x86_64-w64-mingw32-gcc -E -IC:/Ruby24-x64/include/ruby-2.4.0/x64-mingw32 -IC:/Ruby24-x64/include/ruby-2.4.0/ruby/backward -IC:/Ruby24-x64/include/ruby-2.4.0 -I. -IC:/Users/Simonas/VU_Software_Engineering/5.Penktas semestras/Agile_development_with_Ruby/Cinema/CinemaApp/vendor/bundle/ruby/2.4.0/gems/debase-ruby_core_source-0.10.0/lib/debase/ruby_core_source/ruby-2.4.1-p111 -march=x86-64 -mtune=generic -O2 -pipe -IC:/msys64/mingw64/lib/libffi-3.2.1/include  conftest.c -o conftest.i"
+x86_64-w64-mingw32-gcc: error: semestras/Agile_development_with_Ruby/Cinema/CinemaApp/vendor/bundle/ruby/2.4.0/gems/debase-ruby_core_source-0.10.0/lib/debase/ruby_core_source/ruby-2.4.1-p111: No such file or directory
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <winsock2.h>
+4: #include <windows.h>
+5: #include <vm_core.h>
+/* end */
+
+--------------------
+
