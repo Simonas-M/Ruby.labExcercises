@@ -1,1 +1,3 @@
-json.partial! "screenings/screening", screening: @screening
+# frozen_string_literal: true
+
+json.partial! 'screenings/screening', screening: @screening
