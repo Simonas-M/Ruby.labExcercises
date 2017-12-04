@@ -3,7 +3,7 @@
 # class Crew model
 class Crew < ApplicationRecord
   belongs_to :info
-  has_many :directors
-  has_many :writers
-  has_many :actors
+  has_many :directors, dependent: :destroy
+  has_many :writers, dependent: :destroy
+  has_many :actors, dependent: :destroy
 end

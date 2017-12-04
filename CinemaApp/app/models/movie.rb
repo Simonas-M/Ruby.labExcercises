@@ -2,10 +2,10 @@
 
 # movie model
 class Movie < ApplicationRecord
-  has_many :screenings
-  has_many :repertoire_movies
-  has_one :description
-  has_one :info
+  has_many :screenings, dependent: :destroy
+  has_many :repertoire_movies, dependent: :destroy
+  has_one :description, dependent: :destroy
+  has_one :info, dependent: :destroy
 
   def title
     description.title
@@ -18,7 +18,7 @@ class Movie < ApplicationRecord
   def duration
     info.duration
   end
-
+  movies
   def release_date
     info.release_date
   end

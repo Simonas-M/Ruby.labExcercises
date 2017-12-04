@@ -4,7 +4,7 @@
 class Screening < ApplicationRecord
   belongs_to :movie
   belongs_to :screen
-  has_many :tickets
+  has_many :tickets, dependent: :destroy
 
   before_create do
     self.available_seat_count = screen.seat_count

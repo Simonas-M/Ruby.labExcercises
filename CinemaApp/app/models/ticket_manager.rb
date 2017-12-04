@@ -5,7 +5,7 @@ require_relative '../app_helpers/ticket_price_calculator.rb'
 # Class for managing bought tickets
 class TicketManager < ApplicationRecord
   belongs_to :cinema
-  has_many :tickets
+  has_many :tickets, dependent: :destroy
 
   # def reserve_ticket(client, ticket)
 
@@ -37,7 +37,7 @@ class TicketManager < ApplicationRecord
   def assign_ticket(ticket:, client:)
     begin
       tm_ticket = tickets.find_by!(id: ticket.id, client: nil)
-    rescue
+    rescue ActiveRecord::RecordNotFound
       raise 'cannot reassign ticket'
     end
     tm_ticket.assign_to(client: client)

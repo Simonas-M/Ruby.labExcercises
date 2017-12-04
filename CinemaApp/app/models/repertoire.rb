@@ -3,8 +3,8 @@
 # class for movie screening management
 class Repertoire < ApplicationRecord
   belongs_to :cinema
-  has_many :repertoire_movies
-  has_many :movies, through: :repertoire_movies
+  has_many :repertoire_movies, dependent: :destroy
+  has_many :movies, through: :repertoire_movies, dependent: :destroy
 
   def screenings
     Screening.where(screen: Screen.where(cinema: cinema))
@@ -34,8 +34,13 @@ class Repertoire < ApplicationRecord
   # methods for movie screening management
   # right now this can add undefined onjects and mess things up
   def add_screening(new_screening:)
-    raise 'cannot add overlaping screening' if overlaps?(new_screening)
-    Screening.create(new_screening)
+    if !overlaps?(new_screening)
+      Screening.create!(new_screening)
+      true
+    else
+      errors.add(:screening, message: 'cannot add overlaping screening')
+      false
+    end
   end
 
   def add_screenings(screenings:)
