@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+.error-text {
+  color: red
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.m-t-auto {
+  margin-top: auto !important;
+}
+
+.input-wrapper {
+  margin: 1% 0 1% 0;
+}
+.input-wrapper input {
+  width: 200px;
+}
+.input-wrapper textarea {
+  width: 200px;
+}
+
+.w-50 {
+  width: 50%;
+}

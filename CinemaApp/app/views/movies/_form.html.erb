@@ -1,12 +1,32 @@
-<%= form_with(model: @movie, url: "../movies") do |form| %>
-  <%= text_field_tag("title", nil, placeholder: "title") %>
-  <%= date_field_tag("release_date", nil, placeholder: "release date") %>
-  <%= time_field_tag("duration", nil, placeholder: "duration") %>
-  <%= text_area_tag("summary", nil, placeholder: "summary") %>
-  <%= select_tag("genre",
-    options_from_collection_for_select(Genre.all, "id", "name")) %>
-  <%= select_tag("rating",
-    options_from_collection_for_select(Rating.all, "id", "name")) %>
+<p class="error-text"><%= notice %></p>
+
+<%= form_with(model: @movie, url: new_movie_path) do |form| %>
+  <div class="input-wrapper">
+    <%= label(:movie, "title") %>
+    <%= text_field_tag("title", nil, placeholder: "title") %>
+  </div>
+  <div class="input-wrapper">
+    <%= label(:movie, "release date") %>
+    <%= date_field_tag("release_date", nil, placeholder: "release date") %>
+  </div>
+  <div class="input-wrapper">
+    <%= label(:movie, "duration") %>
+    <%= time_field_tag("duration", nil, placeholder: "duration") %>
+  </div>
+  <div class="input-wrapper">
+    <%= label(:movie, "summary") %>
+    <%= text_area_tag("summary", nil, placeholder: "summary") %>
+  </div>
+  <div class="input-wrapper inline-block m-t-auto">
+    <%= label(:movie, "genre") %>
+    <%= select_tag("genre",
+      options_from_collection_for_select(Genre.all, "id", "name")) %>
+  </div>
+  <div class="input-wrapper inline-block m-t-auto">
+    <%= label(:movie, "rating") %>
+    <%= select_tag("rating",
+      options_from_collection_for_select(Rating.all, "id", "name")) %>
+  </div>
   <div class="actions">
     <%= form.submit %>
   </div>
