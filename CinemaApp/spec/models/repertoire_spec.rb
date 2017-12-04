@@ -60,8 +60,9 @@ RSpec.describe Repertoire, type: :model do
 
   it 'should not add a screening if time overlaps and screens are the same' do
     @repertoire.add_screening(new_screening: @screening)
-    expect { @repertoire.add_screening(new_screening: @overlaping) }
-      .to raise_error('cannot add overlaping screening')
+    @repertoire.add_screening(new_screening: @overlaping)
+    expect(@repertoire.errors[:screening][0][:message])
+      .to eq 'cannot add overlaping screening'
   end
 
   it 'should add new screning if time overlap but screens are different' do

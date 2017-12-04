@@ -65,3 +65,9 @@ gem 'simplecov'
 
 # Added at 2017-11-12 21:41:35 +0200 by root:
 gem 'mutant-rspec', '~> 0.8.14'
+
+# Added at 2017-12-04 14:53:47 +0200 by simonas:
+gem "rubocop", "~> 0.51.0"
+
+# Added at 2017-12-04 14:54:03 +0200 by simonas:
+gem "reek", "~> 4.7"

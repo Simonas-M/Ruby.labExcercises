@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'time'
 class ScreeningsController < ApplicationController
-  before_action :set_screening, only: [:show, :destroy]
+  before_action :set_screening, only: %i[show destroy]
 
   # GET /screenings
   # GET /screenings.json
@@ -10,25 +12,30 @@ class ScreeningsController < ApplicationController
 
   # GET /screenings/1
   # GET /screenings/1.json
-  def show
-  end
+  def show; end
 
   # POST /screenings
   # POST /screenings.json
   def create
-    @screening = Screening.new(
-      time: Time.parse(params[:time] + 'Z'),
-      movie: Movie.find(params[:movie]),
-      screen: Screen.find(params[:screen])
-    )
+    params = screening_params
+    repertoire = Repertoire.first
 
     respond_to do |format|
-      if @screening.save
-        format.html { redirect_to @screening, notice: 'Screening was successfully created.' }
+      if repertoire.add_screening(new_screening: params)
+        format.html do
+          redirect_to Screening.find_by!(params),
+                      notice: 'Screening was successfully created.'
+        end
         format.json { render :show, status: :created, location: @screening }
       else
-        format.html { render :new }
-        format.json { render json: @screening.errors, status: :unprocessable_entity }
+        format.html do
+          redirect_to screenings_new_path,
+                      notice: repertoire.errors[:screening][0][:message], status: 400
+        end
+        format.json do
+          render json: @screening.errors,
+                 status: 400
+        end
       end
     end
   end
@@ -38,19 +45,23 @@ class ScreeningsController < ApplicationController
   def destroy
     @screening.destroy
     respond_to do |format|
-      format.html { redirect_to screenings_url, notice: 'Screening was successfully destroyed.' }
+      format.html do
+        redirect_to screenings_url,
+                    notice: 'Screening was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_screening
-      @screening = Screening.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def screening_params
-      params.fetch(:screening, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_screening
+    @screening = Screening.find(params[:id])
+  end
+
+  def screening_params
+    params[:time] = Time.parse(params[:time] << 'Z')
+    params.permit(:time, :movie_id, :screen_id)
+  end
 end

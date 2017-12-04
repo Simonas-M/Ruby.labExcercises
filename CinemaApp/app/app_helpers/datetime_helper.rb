@@ -24,4 +24,8 @@ class DatetimeHelper
   def self.current_year
     Time.now.utc.year
   end
+
+  def self.to_seconds(hours:, minutes:)
+    hours * 3600 + minutes * 60
+  end
 end

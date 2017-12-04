@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# Controller for Movies
 class MoviesController < ApplicationController
-  before_action :set_movie, only: [:show, :destroy]
+  before_action :set_movie, only: %i[show destroy]
 
   # GET /movies
   # GET /movies.json
@@ -9,61 +12,97 @@ class MoviesController < ApplicationController
 
   # GET /movies/1
   # GET /movies/1.json
-  def show
-  end
+  def show; end
 
   # POST /moviess
   # POST /movies.json
   def create
     @movie = Movie.new
-    duration = params[:duration].split(':')
-    @info = Info.new(
-      duration: Integer(duration[0]) * 3600 + Integer(duration[1]) * 60,
-      release_date: Date.parse(params[:release_date]),
-      rating: Rating.find(params[:rating]),
-      movie: @movie
+    info = Info.new(
+      movie_info_params.merge(movie: @movie)
     )
-    @description = Description.new(
-      title: params[:title],
-      summary: params[:summary],
-      genre: Genre.find(params[:genre]),
-      movie: @movie
+    description = Description.new(
+      movie_description_params.merge(movie: @movie)
     )
 
     respond_to do |format|
-      if @movie.save && @info.save && @description.save
-        format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
-        format.json { render :show, status: :created, location: @movie }
+      if @movie.save
+        redirect_and_notify(
+          format,
+          @movie,
+          'Movie was successfully created.'
+        )
       else
-        format.html { render :new }
-        format.json { render json: @movie.errors, status: :unprocessable_entity }
+        redirect_and_notify(
+          format,
+          movies_new_path,
+          'An error occured, please try again'
+        )
       end
     end
+  rescue ActionController::ParameterMissing
+    return rescue_bad_request
   end
-
 
   # DELETE /movies/1
   # DELETE /movies/1.json
   def destroy
-    Movie.transaction do
-      @movie.description.destroy
-      @movie.info.destroy
-      @movie.destroy
-    end
     respond_to do |format|
-      format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
+      redirect_and_notify(
+        format,
+        movies_url,
+        'Movie was successfully destroyed'
+      )
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_movie
-      @movie = Movie.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def movie_params
-      params.fetch(:movie, {})
+  # Use callbacks to share common setup or constraints between actions.
+  def set_movie
+    @movie = Movie.find(params[:id])
+  end
+
+  def movie_info_params
+    validate_params(:duration, :release_date, :rating)
+    params[:rating] = Rating.find(params[:rating])
+    duration = params[:duration].split(':')
+    params[:duration] = DatetimeHelper.to_seconds(
+      hours: Integer(duration[0]),
+      minutes: Integer(duration[1])
+      )
+    params.permit!.slice(:duration, :rating, :release_date)
+  end
+
+  def validate_params(*parameters)
+    parameters.each { |param| params.require(param) }
+  end
+
+  def movie_description_params
+    validate_params(:title, :summary, :genre)
+    params[:genre] = Genre.find(params[:genre])    
+    params.permit!.slice(:title, :summary, :genre)
+  end
+
+  def rescue_bad_request
+    respond_to do |format|
+      redirect_and_notify(
+        format,
+        movies_new_path,
+        'Please check if all fields are filled')
+      render_json(
+        format,
+        'Please check if all fields are filled',
+        :bad_request)
     end
+  end
+
+  def redirect_and_notify(format, path, notice)
+    format.html { redirect_to(path, notice: notice) }
+  end
+
+  def render_json(format, json, status)
+    format.json { render json: json, status: status }
+  end
 end
