@@ -26,26 +26,26 @@ class MoviesController < ApplicationController
   # POST /movies
   def create
     if create_movie
-      respond_and_notify(movie, 'Movie was successfully created.')
+      respond(movie, 'Movie was successfully created.')
     else
-      respond_and_notify(movies_new_path, 'An error occured, please try again')
+      respond(movies_new_path, 'An error occured, please try again')
     end
   rescue ActionController::ParameterMissing
-    respond_and_notify(movies_new_path, 'Please check if all fields are filled')
+    respond(movies_new_path, 'Please check if all fields are filled')
   end
-
 
   # DELETE /movies/1
   def destroy
     movie.destroy
     if movie.destroyed?
-      respond_and_notify(movies_path, 'Movie was successfully destroyed')
+      respond(movies_path, 'Movie was successfully destroyed')
     else
-      respond_and_notify(movies_path, 'An error occured, movie not deleted')
+      respond(movies_path, 'An error occured, movie not deleted')
     end
   end
 
   private
+
   attr_reader :movie
 
   # Use callbacks to share common setup or constraints between actions.
@@ -56,17 +56,13 @@ class MoviesController < ApplicationController
   def movie_info_params
     validate_params(:duration, :release_date, :rating)
     params[:rating] = Rating.find(params[:rating])
-    duration = params[:duration].split(':')
-    params[:duration] = DatetimeHelper.to_seconds(
-      hours: Integer(duration[0]),
-      minutes: Integer(duration[1])
-      )
+    params[:duration] = DatetimeHelper.parse_time_to_seconds(params[:duration])
     params.permit!.slice(:duration, :rating, :release_date)
   end
 
   def movie_description_params
     validate_params(:title, :summary, :genre)
-    params[:genre] = Genre.find(params[:genre])    
+    params[:genre] = Genre.find(params[:genre])
     params.permit!.slice(:title, :summary, :genre)
   end
 end

@@ -1,66 +1,61 @@
 # frozen_string_literal: true
 
 require 'time'
+
+# Screenings controller
 class ScreeningsController < ApplicationController
   before_action :set_screening, only: %i[show destroy]
+  before_action :set_repertorie, only: %i[create]
 
   # GET /screenings
-  # GET /screenings.json
   def index
     @screenings = Screening.all
   end
 
   # GET /screenings/1
-  # GET /screenings/1.json
   def show; end
 
   # POST /screenings
-  # POST /screenings.json
   def create
-    params = screening_params
-    repertoire = Repertoire.first
-
-    respond_to do |format|
-      if repertoire.add_screening(new_screening: params)
-        format.html do
-          redirect_to Screening.find_by!(params),
-                      notice: 'Screening was successfully created.'
-        end
-        format.json { render :show, status: :created, location: @screening }
-      else
-        format.html do
-          redirect_to screenings_new_path,
-                      notice: repertoire.errors[:screening][0][:message], status: 400
-        end
-        format.json do
-          render json: @screening.errors,
-                 status: 400
-        end
-      end
+    scr_params = screening_params
+    if repertoire.add_screening(new_screening: scr_params)
+      respond(
+        Screening.find_by(scr_params), 'Screening was successfully created'
+      )
+    else
+      respond(screenings_new_path, repertoire.errors[:screening][0][:message])
     end
+  rescue ActionController::ParameterMissing
+    respond(screenings_new_path, 'Please check if all fields are filled')
   end
 
   # DELETE /screenings/1
-  # DELETE /screenings/1.json
   def destroy
-    @screening.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to screenings_url,
-                    notice: 'Screening was successfully destroyed.'
-      end
-      format.json { head :no_content }
+    screening.destroy
+    if screening.destroyed?
+      respond(screenings_url, 'Screening was successfully destroyed')
+    else
+      respond(
+        screenings_url, 'An error occured, movie not deleted'
+      )
     end
   end
 
   private
+
+  attr_reader :screening, :repertoire
 
   # Use callbacks to share common setup or constraints between actions.
   def set_screening
     @screening = Screening.find(params[:id])
   end
 
+  def set_repertorie
+    @repertoire = Repertoire.first
+  end
+
   def screening_params
+    validate_params(:time, :movie_id, :screen_id)
     params[:time] = Time.parse(params[:time] << 'Z')
     params.permit(:time, :movie_id, :screen_id)
   end

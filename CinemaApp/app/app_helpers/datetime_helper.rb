@@ -25,7 +25,8 @@ class DatetimeHelper
     Time.now.utc.year
   end
 
-  def self.to_seconds(hours:, minutes:)
-    hours * 3600 + minutes * 60
+  def self.parse_time_to_seconds(time_string)
+    duration = time_string.split(':')
+    Integer(duration[0]) * 3600 + Integer(duration[1]) * 60
   end
 end
