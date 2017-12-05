@@ -18,7 +18,7 @@ class Movie < ApplicationRecord
   def duration
     info.duration
   end
-  movies
+
   def release_date
     info.release_date
   end
