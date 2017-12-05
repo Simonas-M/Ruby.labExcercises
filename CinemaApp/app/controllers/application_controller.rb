@@ -8,10 +8,10 @@ class ApplicationController < ActionController::Base
   helper_method :validate_params
 
   def redirect(format, path, notice = '')
-    format.html { redirect_to(path, notice: notice) }
+    format.html { redirect_to(path, {notice: notice}) }
   end
 
-  def respond(path, notice = '')
+  def respond(path, notice = '', status)
     respond_to do |format|
       redirect(format, path, notice)
     end
