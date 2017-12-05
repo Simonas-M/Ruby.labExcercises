@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "movies/index", type: :view do
+RSpec.describe 'movies/index', type: :view do
   fixtures :all
   before(:each) do
     assign(:movies, [
-      movies(:se7en),
-      movies(:inception)
-    ])
+             movies(:se7en),
+             movies(:inception)
+           ])
   end
 
-  it "renders a list of movies" do
+  it 'renders a list of movies' do
     render
     expect(rendered).to include 'Se7en'
     expect(rendered).to include 'Inception'

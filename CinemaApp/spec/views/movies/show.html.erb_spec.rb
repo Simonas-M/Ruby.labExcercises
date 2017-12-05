@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "movies/show", type: :view do
+RSpec.describe 'movies/show', type: :view do
   fixtures :all
   before(:each) do
     @movie = assign(:movie, movies(:inception))
   end
 
-  it "renders title in <h1>" do
+  it 'renders title in <h1>' do
     render
     expect(rendered).to have_selector('body > div.title_wrapper > h1',
                                       text: 'Inception')
