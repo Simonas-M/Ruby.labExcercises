@@ -11,5 +11,7 @@ RSpec.describe "movies/index", type: :view do
 
   it "renders a list of movies" do
     render
+    expect(rendered).to include 'Se7en'
+    expect(rendered).to include 'Inception'
   end
 end

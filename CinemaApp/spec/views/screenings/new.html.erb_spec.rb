@@ -7,8 +7,8 @@ RSpec.describe "screenings/new", type: :view do
 
   it "renders new screening form" do
     render
-
-    assert_select "form[action=?][method=?]", screenings_path, "post" do
+    expect(rendered)
+      .to have_selector('form[action="/screenings"][method="post"]')
     end
   end
 end
