@@ -20,7 +20,6 @@
         <div>
           <%= Time.at(screening.time).utc.strftime('%Y-%m-%d %Hh %Mmin') %>
         </div>
-        <span><%= link_to 'Show', screening %></span>
         <span><%= link_to 'Destroy', screening, method: :delete, data: { confirm: 'Are you sure?' } %></span>
       </div>
     <% end %>
