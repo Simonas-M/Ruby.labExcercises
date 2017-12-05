@@ -47,7 +47,7 @@ class ScreeningsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_screening
-    @screening = Screening.find(params[:id])
+    @screening = Screening.find(params.fetch(:id))
   end
 
   def set_repertorie
@@ -56,7 +56,7 @@ class ScreeningsController < ApplicationController
 
   def screening_params
     validate_params(:time, :movie_id, :screen_id)
-    params[:time] = Time.parse(params[:time] << 'Z')
+    params[:time] = Time.parse(params.fetch(:time) << 'Z')
     params.permit(:time, :movie_id, :screen_id)
   end
 end
