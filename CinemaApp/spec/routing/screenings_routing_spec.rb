@@ -15,20 +15,8 @@ RSpec.describe ScreeningsController, type: :routing do
       expect(:get => "/screenings/1").to route_to("screenings#show", :id => "1")
     end
 
-    it "routes to #edit" do
-      expect(:get => "/screenings/1/edit").to route_to("screenings#edit", :id => "1")
-    end
-
     it "routes to #create" do
       expect(:post => "/screenings").to route_to("screenings#create")
-    end
-
-    it "routes to #update via PUT" do
-      expect(:put => "/screenings/1").to route_to("screenings#update", :id => "1")
-    end
-
-    it "routes to #update via PATCH" do
-      expect(:patch => "/screenings/1").to route_to("screenings#update", :id => "1")
     end
 
     it "routes to #destroy" do

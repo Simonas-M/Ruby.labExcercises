@@ -36,7 +36,7 @@ class ScreeningsController < ApplicationController
       respond(screenings_url, 'Screening was successfully destroyed')
     else
       respond(
-        screenings_url, 'An error occured, movie not deleted'
+        screenings_url, 'An error occured, screening not deleted'
       )
     end
   end

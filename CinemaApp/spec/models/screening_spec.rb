@@ -26,7 +26,7 @@ RSpec.describe Screening, type: :model do
       .to change { @movie_screening.available_seat_count }.from(37).to(39)
   end
 
-  it'should increase available seat count' do
+  it 'should increase available seat count' do
     @movie_screening.reserve('40')
     @movie_screening.free('40')
     expect(@movie_screening.available_seat_count).to eq(40)

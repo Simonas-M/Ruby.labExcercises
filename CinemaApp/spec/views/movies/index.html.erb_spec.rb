@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "movies/index", type: :view do
+  fixtures :all
   before(:each) do
     assign(:movies, [
-      Movie.create!(),
-      Movie.create!()
+      movies(:se7en),
+      movies(:inception)
     ])
   end
 
