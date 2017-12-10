@@ -22,6 +22,7 @@ RSpec.describe ScreeningsController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
+      expect(Screening).to receive(:all)
       get :index, params: {}
       expect(response).to be_success
     end
@@ -47,6 +48,8 @@ RSpec.describe ScreeningsController, type: :controller do
       it 'creates a new Screening' do
         expect(controller)
           .to receive(:validate_params).with(:time, :movie_id, :screen_id)
+        expect(controller).to receive(:respond)
+          .with(kind_of(Screening), 'Screening was successfully created')
         expect do
           post :create, params: screening_params
         end.to change(Screening, :count).by(1)
@@ -68,6 +71,9 @@ RSpec.describe ScreeningsController, type: :controller do
 
     context 'with invalid params' do
       it 'redirects to new screening creation page' do
+        expect(controller).to receive(:respond)
+          .with(screenings_new_path, 'Please check if all fields are filled')
+          .and_call_original
         post :create, params: invalid_attributes
         expect(response).to redirect_to(screenings_new_url)
       end

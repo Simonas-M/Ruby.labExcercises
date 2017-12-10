@@ -14,13 +14,13 @@ class MoviesController < ApplicationController
 
   def create_movie
     @movie = Movie.new
-    info = Info.new(
+    Info.new(
       movie_info_params.merge(movie: movie)
     )
-    description = Description.new(
+    Description.new(
       movie_description_params.merge(movie: movie)
     )
-    info.save && description.save && movie.save
+    movie.save
   end
 
   # POST /movies
@@ -44,25 +44,25 @@ class MoviesController < ApplicationController
     end
   end
 
-  private
 
   attr_reader :movie
 
   # Use callbacks to share common setup or constraints between actions.
   def set_movie
-    @movie = Movie.find(params[:id])
+    @movie = Movie.find(params.fetch(:id))
   end
 
   def movie_info_params
     validate_params(:duration, :release_date, :rating)
-    params[:rating] = Rating.find(params[:rating])
-    params[:duration] = DatetimeHelper.parse_time_to_seconds(params[:duration])
-    params.permit!.slice(:duration, :rating, :release_date)
+    params[:rating] = Rating.find(params.fetch(:rating))
+    params[:duration] = DatetimeHelper
+      .parse_time_to_seconds(params.fetch(:duration))
+    params.permit!.slice(:duration, :rating, :release_date) # mutation here
   end
 
   def movie_description_params
     validate_params(:title, :summary, :genre)
-    params[:genre] = Genre.find(params[:genre])
-    params.permit!.slice(:title, :summary, :genre)
+    params[:genre] = Genre.find(params.fetch(:genre))
+    params.permit!.slice(:title, :summary, :genre) # mutation here
   end
 end
