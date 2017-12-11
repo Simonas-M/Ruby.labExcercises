@@ -7,6 +7,8 @@ class ScreeningsController < ApplicationController
   before_action :set_screening, only: %i[show destroy]
   before_action :set_repertorie, only: %i[create]
 
+  attr_reader :screenings
+
   # GET /screenings
   def index
     @screenings = Screening.all
@@ -23,7 +25,7 @@ class ScreeningsController < ApplicationController
         Screening.find_by(scr_params), 'Screening was successfully created'
       )
     else
-      respond(screenings_new_path, repertoire.errors[:screening][0][:message])
+      respond(screenings_new_path, repertoire.errors[:screening])
     end
   rescue ActionController::ParameterMissing
     respond(screenings_new_path, 'Please check if all fields are filled')
@@ -51,7 +53,7 @@ class ScreeningsController < ApplicationController
   end
 
   def set_repertorie
-    @repertoire = Repertoire.first
+    @repertoire = Repertoire.last
   end
 
   def screening_params

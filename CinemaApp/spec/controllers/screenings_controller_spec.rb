@@ -7,7 +7,7 @@ RSpec.describe ScreeningsController, type: :controller do
 
   let(:screening_params) do
     {
-      time: Time.now,
+      time: '2017-12-15 01:00:00',
       movie_id: Movie.first.id,
       screen_id: Screen.first.id
     }
@@ -23,8 +23,10 @@ RSpec.describe ScreeningsController, type: :controller do
   describe 'GET #index' do
     it 'returns a success response' do
       expect(Screening).to receive(:all)
+        .and_return(screenings(:inception_screening))
       get :index, params: {}
       expect(response).to be_success
+      expect(controller.screenings).to eq screenings(:inception_screening)
     end
   end
 
@@ -55,6 +57,12 @@ RSpec.describe ScreeningsController, type: :controller do
         end.to change(Screening, :count).by(1)
       end
 
+      it 'converts time to UTC' do
+        expect(Time).to receive(:parse).with(screening_params[:time] + 'Z')
+          .and_call_original
+        post :create, params: screening_params
+      end
+
       it 'redirects to the created screening' do
         post :create, params: screening_params
         expect(response).to redirect_to(Screening.last)
@@ -64,7 +72,8 @@ RSpec.describe ScreeningsController, type: :controller do
         allow(ScreeningHelper)
           .to receive(:overlaps?).and_return true
         expect(controller).to receive(:respond)
-          .with(screenings_new_path, 'cannot add overlaping screening')
+          .with(screenings_new_path,
+               [{:message=>"cannot add overlaping screening"}])
         post :create, params: screening_params
       end
     end

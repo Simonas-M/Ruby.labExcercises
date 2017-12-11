@@ -6,8 +6,8 @@ RSpec.describe MoviesController, type: :controller do
   fixtures :all
 
   before :each do
-    Movie.create!()
-    Movie.create!()
+    Movie.create!
+    Movie.create!
   end
 
   let(:movie_parameters) do
@@ -62,30 +62,31 @@ RSpec.describe MoviesController, type: :controller do
       get :index, params: movie_parameters
       expect(controller)
         .to receive(:validate_params).with(:duration, :release_date, :rating)
-        .and_call_original
+                                     .and_call_original
       expect(controller.movie_info_params.to_h)
-        .to eq({"duration" => 8640,
-                "rating" => Rating.first,
-                "release_date" => "2017-12-15"})
+        .to eq('duration' => 8640,
+               'rating' => Rating.first,
+               'release_date' => '2017-12-15')
     end
 
     it 'should get only description params' do
       get :index, params: movie_parameters
       expect(controller)
         .to receive(:validate_params).with(:title, :summary, :genre)
-        .and_call_original
+                                     .and_call_original
       expect(controller.movie_description_params.to_h)
-        .to eq({"title" => 'New movie',
-                "summary" => 'a long summary',
-                "genre" => Genre.first})
+        .to eq('title' => 'New movie',
+               'summary' => 'a long summary',
+               'genre' => Genre.first)
     end
   end
 
   describe 'GET #index' do
     it 'returns a success response' do
-      expect(Movie).to receive(:all)
+      expect(Movie).to receive(:all).and_return(movies(:inception))
       get :index, params: {}
       expect(response).to be_success
+      expect(controller.movies).to eq movies(:inception)
     end
   end
 

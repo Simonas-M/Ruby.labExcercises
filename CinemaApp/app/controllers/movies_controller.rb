@@ -4,6 +4,8 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[show destroy]
 
+  attr_reader :movies
+
   # GET /movies
   def index
     @movies = Movie.all
@@ -44,7 +46,6 @@ class MoviesController < ApplicationController
     end
   end
 
-
   attr_reader :movie
 
   # Use callbacks to share common setup or constraints between actions.
@@ -56,7 +57,7 @@ class MoviesController < ApplicationController
     validate_params(:duration, :release_date, :rating)
     params[:rating] = Rating.find(params.fetch(:rating))
     params[:duration] = DatetimeHelper
-      .parse_time_to_seconds(params.fetch(:duration))
+                        .parse_time_to_seconds(params.fetch(:duration))
     params.permit!.slice(:duration, :rating, :release_date) # mutation here
   end
 

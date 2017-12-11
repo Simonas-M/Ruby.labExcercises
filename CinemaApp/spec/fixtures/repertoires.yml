@@ -2,3 +2,6 @@
 
 repertoire:
   cinema: cinema
+
+other_repertoire:
+  cinema: other_cinema
